@@ -1,0 +1,58 @@
+# DOCUMENTATION: https://docs.artillex-studios.com/axauctions.html
+# ITEM BUILDER: https://docs.artillex-studios.com/item-builder.html
+
+title: '&0Visor de historial'
+# a gui can have 1-6 rows
+rows: 4
+# how many items should be shown on a single page?
+page-size: 27
+
+# ----- ITEMS -----
+
+previous-page:
+  slot: 30
+  material: ARROW
+  name: '&#00DDFF ᴘᴀɢɪɴᴀ ᴀɴᴛᴇʀɪᴏʀ'
+  lore:
+  - ' '
+  - ' &fHaz click aquí para volver'
+  - ' &fa la página anterior!'
+  - ' '
+  - '&#00DDFF→ Click para página anterior'
+  actions:
+  - '[PAGE] previous'
+  - '[SOUND] ui.button.click|1|1'
+
+next-page:
+  slot: 32
+  material: ARROW
+  name: '&#00DDFF ꜱɪɢᴜɪᴇɴᴛᴇ ᴘᴀɢɪɴᴀ'
+  lore:
+  - ' '
+  - ' &fHaz click aquí para ir'
+  - ' &fa la siguiente página!'
+  - ' '
+  - '&#00DDFF→ Click para siguiente página'
+  actions:
+  - '[PAGE] next'
+  - '[SOUND] ui.button.click|1|1'
+
+filler:
+  slot:
+  - 27
+  - 28
+  - 29
+  - 31
+  - 33
+  - 34
+  - 35
+  material: LIGHT_BLUE_STAINED_GLASS_PANE
+  name: ' '
+
+#decoration-example:
+#  slot: 13
+#  material: IRON_INGOT
+#  name: '&eDECORATION'
+#  lore:
+#    - ' '
+#    - ' &fWoah, what a cool decoration!'

@@ -18,20 +18,15 @@ import org.pokesplash.gts.UI.button.Filler;
 import org.pokesplash.gts.UI.module.ListingInfo;
 import org.pokesplash.gts.UI.module.PokemonInfo;
 import org.pokesplash.gts.api.GtsAPI;
+import org.pokesplash.gts.enumeration.FilterType;
 import org.pokesplash.gts.util.ColorUtil;
 import org.pokesplash.gts.util.Utils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * UI of the Single Listings page.
- */
 public class SingleListing {
 
-	/**
-	 * Method that returns the page.
-	 * @return SingleListing page.
-	 */
 	public Page getPage(ServerPlayer viewer, Listing listing) {
 
 		List<Component> lore = ListingInfo.parse(listing);
@@ -50,18 +45,18 @@ public class SingleListing {
 				.display(Gts.language.getPurchaseButtonItem())
 				.with(DataComponents.CUSTOM_NAME,
 						ColorUtil.parse(Gts.language.getConfirmPurchaseButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getPurchaseButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
 				.onClick((action) -> {
 
-					// Checks that the listing still exists.
 					if (Gts.listings.getActiveListingById(listing.getId()) == null) {
 						action.getPlayer().sendSystemMessage(Component.literal(
-								"§cThis listing is no longer available."
-						));
+								"&#FF3333Este listing ya no está disponible."));
 						UIManager.closeUI(action.getPlayer());
 						return;
 					}
 
-					// Checks the player has inventory space for the item.
 					if (!listing.isPokemon()) {
 						ItemListing itemListing = (ItemListing) listing;
 						if (!Utils.hasSpace(action.getPlayer(), itemListing.getListing())) {
@@ -72,10 +67,8 @@ public class SingleListing {
 							UIManager.closeUI(action.getPlayer());
 							return;
 						}
-
 					}
 
-					// Checks that the player can afford the listing.
 					if (!GtsAPI.hasEnoughFunds(action.getPlayer().getUUID(), listing.getPrice())) {
 						action.getPlayer().sendSystemMessage(
 								ColorUtil.parse(
@@ -86,10 +79,8 @@ public class SingleListing {
 					}
 
 					try {
-						// Perform the transaction.
-						boolean success = GtsAPI.sale(listing.getSellerUuid(), action.getPlayer(), listing);
+						GtsAPI.sale(listing.getSellerUuid(), action.getPlayer(), listing);
 
-						// Notify the player.
 						action.getPlayer().sendSystemMessage(
 								ColorUtil.parse(
 										Utils.formatPlaceholders(Gts.language.getPurchaseMessageBuyer(),
@@ -99,7 +90,6 @@ public class SingleListing {
 						ServerPlayer seller =
 								action.getPlayer().getServer().getPlayerList().getPlayer(listing.getSellerUuid());
 
-						// If the seller is online and not the buyer, notify them.
 						if (seller != null && !seller.getUUID().equals(action.getPlayer().getUUID())) {
 							seller.sendSystemMessage(
 									ColorUtil.parse(
@@ -112,7 +102,6 @@ public class SingleListing {
 						action.getPlayer().sendSystemMessage(Component.literal("§c" + e.getMessage()));
 					}
 
-
 					UIManager.closeUI(action.getPlayer());
 				})
 				.build();
@@ -121,9 +110,12 @@ public class SingleListing {
 				.display(Gts.language.getCancelButtonItem())
 				.with(DataComponents.CUSTOM_NAME,
 						ColorUtil.parse(Gts.language.getCancelPurchaseButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getCancelButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
 				.onClick((action) -> {
 					ServerPlayer sender = action.getPlayer();
-					Page page = new AllListings().getPage();
+					Page page = new AllListings().getPage(FilterType.ALL);
 					UIManager.openUIForcefully(sender, page);
 				})
 				.build();
@@ -132,9 +124,10 @@ public class SingleListing {
 				.display(Gts.language.getRemoveListingButtonItem())
 				.with(DataComponents.CUSTOM_NAME,
 						ColorUtil.parse(Gts.language.getRemoveListingButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getRemoveListingButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
 				.onClick((action) -> {
-
-
 					if (action.getPlayer().getUUID().equals(listing.getSellerUuid())) {
 						GtsAPI.cancelAndReturnListing(action.getPlayer(), listing);
 					} else {

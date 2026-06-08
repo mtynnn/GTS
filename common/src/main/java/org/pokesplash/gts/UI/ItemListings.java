@@ -14,28 +14,25 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.component.ItemLore;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.Listing.ItemListing;
-import org.pokesplash.gts.UI.button.ManageListings;
-import org.pokesplash.gts.UI.button.*;
+import org.pokesplash.gts.UI.button.ExpiredListings;
+import org.pokesplash.gts.UI.button.Filler;
+import org.pokesplash.gts.UI.button.NextPage;
+import org.pokesplash.gts.UI.button.PreviousPage;
+import org.pokesplash.gts.UI.button.RelistAll;
 import org.pokesplash.gts.UI.module.ListingInfo;
+import org.pokesplash.gts.enumeration.FilterType;
 import org.pokesplash.gts.enumeration.Sort;
 import org.pokesplash.gts.util.ColorUtil;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * UI of the Item Listings page.
- */
 public class ItemListings {
 
-	/**
-	 * Method that returns the page.
-	 * @return Item Listings page.
-	 */
 	public Page getPage(@NotNull Sort sort) {
 
 		List<ItemListing> itmListings = Gts.listings.getItemListings();
@@ -48,36 +45,56 @@ public class ItemListings {
 			itmListings.sort(Comparator.comparing(ItemListing::getListingName));
 		}
 
-		Button sortByPriceButton = GooeyButton.builder()
-				.display(Gts.language.getSortByPriceButtonItem())
-				.with(DataComponents.CUSTOM_NAME,
-						ColorUtil.parse(Gts.language.getSortByPriceButtonLabel()))
+		Sort nextSort = switch (sort) {
+			case NONE, NAME -> Sort.DATE;
+			case DATE       -> Sort.PRICE;
+			case PRICE      -> Sort.NAME;
+		};
+
+		List<String> sortLore = switch (sort) {
+			case PRICE -> Gts.language.getSortButtonLorePrice();
+			case NAME  -> Gts.language.getSortButtonLoreName();
+			default    -> Gts.language.getSortButtonLoreDate();
+		};
+
+		net.minecraft.world.item.ItemStack sortItem = switch (sort) {
+			case PRICE -> Gts.language.getSortByPriceButtonItem();
+			case NAME  -> Gts.language.getSortByNameButtonItem();
+			default    -> Gts.language.getSortByNewestButtonItem();
+		};
+
+		Button sortButton = GooeyButton.builder()
+				.display(sortItem)
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getSortByNewestButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						sortLore.stream().map(ColorUtil::parse).collect(Collectors.toList())))
 				.onClick((action) -> {
 					ServerPlayer sender = action.getPlayer();
-					Page page = new ItemListings().getPage(Sort.PRICE);
-					UIManager.openUIForcefully(sender, page);
+					UIManager.openUIForcefully(sender, new ItemListings().getPage(nextSort));
 				})
 				.build();
 
-		Button sortByNewestButton = GooeyButton.builder()
-				.display(Gts.language.getSortByNewestButtonItem())
-				.with(DataComponents.CUSTOM_NAME,
-						ColorUtil.parse(Gts.language.getSortByNewestButtonLabel()))
+		Button backButton = GooeyButton.builder()
+				.display(Gts.language.getBackButtonItem())
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getBackButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getBackButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
 				.onClick((action) -> {
 					ServerPlayer sender = action.getPlayer();
-					Page page = new ItemListings().getPage(Sort.DATE);
-					UIManager.openUIForcefully(sender, page);
+					UIManager.openUIForcefully(sender, new AllListings().getPage(FilterType.ALL));
 				})
 				.build();
 
-		Button sortByNameButton = GooeyButton.builder()
-				.display(Gts.language.getSortByNameButtonItem())
-				.with(DataComponents.CUSTOM_NAME,
-						ColorUtil.parse(Gts.language.getSortByNameButtonLabel()))
+		Button refreshButton = GooeyButton.builder()
+				.display(Gts.language.getRefreshButtonItem())
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getRefreshButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getRefreshButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
 				.onClick((action) -> {
 					ServerPlayer sender = action.getPlayer();
-					Page page = new ItemListings().getPage(Sort.NAME);
-					UIManager.openUIForcefully(sender, page);
+					UIManager.openUIForcefully(sender, new ItemListings().getPage(sort));
 				})
 				.build();
 
@@ -104,19 +121,17 @@ public class ItemListings {
 		ChestTemplate template = ChestTemplate.builder(6)
 				.rectangle(0, 0, 5, 9, placeholder)
 				.fill(Filler.getButton())
-				.set(47, sortByPriceButton)
-				.set(48, sortByNewestButton)
-				.set(49, sortByNameButton)
-				.set(50, SeePokemonListings.getButton())
-				.set(51, ManageListings.getButton())
-				.set(53, NextPage.getButton())
-				.set(45, PreviousPage.getButton())
+				.set(45, backButton)
+				.set(46, sortButton)
+				.set(48, PreviousPage.getButton())
+				.set(49, refreshButton)
+				.set(50, NextPage.getButton())
+				.set(51, ExpiredListings.getButton())
 				.set(52, RelistAll.getButton())
 				.build();
 
 		LinkedPage page = PaginationHelper.createPagesFromPlaceholders(template, itemButtons, null);
 		page.setTitle(Gts.language.getItemListingsTitle());
-
 		setPageTitle(page);
 
 		return page;

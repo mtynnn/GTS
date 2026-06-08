@@ -16,23 +16,22 @@ import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.Listing.Listing;
 import org.pokesplash.gts.Listing.PokemonListing;
 import org.pokesplash.gts.UI.button.ExpiredListings;
-import org.pokesplash.gts.UI.button.*;
+import org.pokesplash.gts.UI.button.Filler;
+import org.pokesplash.gts.UI.button.NextPage;
+import org.pokesplash.gts.UI.button.PreviousPage;
+import org.pokesplash.gts.UI.button.RelistAll;
 import org.pokesplash.gts.UI.module.ListingInfo;
 import org.pokesplash.gts.UI.module.PokemonInfo;
+import org.pokesplash.gts.enumeration.FilterType;
+import org.pokesplash.gts.util.ColorUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-/**
- * UI of the Manage Listings page.
- */
 public class ManageListings {
 
-	/**
-	 * Method that returns the page.
-	 * @return Listings page.
-	 */
 	public Page getPage(UUID owner) {
 
 		List<Listing> listings = Gts.listings.getListingsByPlayer(owner);
@@ -46,7 +45,7 @@ public class ManageListings {
 
 				if (listing.isPokemon()) {
 					PokemonListing pokemonListing = (PokemonListing) listing;
-					lore.addAll(PokemonInfo.parse(pokemonListing.getListing()));
+					lore.addAll(PokemonInfo.parseShort(pokemonListing.getListing()));
 				}
 
 				Button button = GooeyButton.builder()
@@ -64,20 +63,43 @@ public class ManageListings {
 			});
 		}
 
+		Button backButton = GooeyButton.builder()
+				.display(Gts.language.getBackButtonItem())
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getBackButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getBackButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
+				.onClick((action) -> {
+					ServerPlayer sender = action.getPlayer();
+					UIManager.openUIForcefully(sender, new AllListings().getPage(FilterType.ALL));
+				})
+				.build();
+
+		Button refreshButton = GooeyButton.builder()
+				.display(Gts.language.getRefreshButtonItem())
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getRefreshButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getRefreshButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
+				.onClick((action) -> {
+					ServerPlayer sender = action.getPlayer();
+					UIManager.openUIForcefully(sender, new ManageListings().getPage(sender.getUUID()));
+				})
+				.build();
+
 		ChestTemplate template = ChestTemplate.builder(6)
 				.rectangle(0, 0, 5, 9, placeholder)
 				.fill(Filler.getButton())
-				.set(48, SeePokemonListings.getButton())
-				.set(49, ExpiredListings.getButton())
-				.set(50, SeeItemListings.getButton())
-				.set(53, NextPage.getButton())
-				.set(45, PreviousPage.getButton())
+				.set(45, backButton)
+				.set(48, PreviousPage.getButton())
+				.set(49, refreshButton)
+				.set(50, NextPage.getButton())
+				.set(51, ExpiredListings.getButton())
 				.set(52, RelistAll.getButton())
 				.build();
 
 		LinkedPage page = PaginationHelper.createPagesFromPlaceholders(template, buttons, null);
 		page.setTitle(Gts.language.getManageTitle());
-
 		setPageTitle(page);
 
 		return page;

@@ -22,16 +22,10 @@ import org.pokesplash.gts.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * UI of the Expired Listing page.
- */
 public class ExpiredListing {
 
-	/**
-	 * Method that returns the page.
-	 * @return SingleListing page.
-	 */
 	public Page getPage(Listing listing) {
 
 		List<Component> lore = new ArrayList<>();
@@ -54,24 +48,25 @@ public class ExpiredListing {
 				.display(Gts.language.getPurchaseButtonItem())
 				.with(DataComponents.CUSTOM_NAME,
 						ColorUtil.parse(Gts.language.getReceiveListingButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getReceiveListingButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
 				.onClick((action) -> {
 					boolean success = GtsAPI.returnListing(action.getPlayer(), listing);
 
-					String message = "";
-
+					String message;
 					if (success) {
 						message = Utils.formatPlaceholders(Gts.language.getReturnListingSuccess(),
 								0, listing.getListingName(), listing.getSellerName(),
 								action.getPlayer().getName().getString());
-						action.getPlayer().sendSystemMessage(ColorUtil.parse(message));
 					} else {
 						message = Utils.formatPlaceholders(Gts.language.getReturnListingFail(),
 								0, listing.getListingName(), listing.getSellerName(),
 								action.getPlayer().getName().getString());
-						action.getPlayer().sendSystemMessage(ColorUtil.parse(message));
 					}
-
-					UIManager.openUIForcefully(action.getPlayer(), new ExpiredListings().getPage(action.getPlayer().getUUID()));
+					action.getPlayer().sendSystemMessage(ColorUtil.parse(message));
+					UIManager.openUIForcefully(action.getPlayer(),
+							new ExpiredListings().getPage(action.getPlayer().getUUID()));
 				})
 				.build();
 
@@ -79,6 +74,9 @@ public class ExpiredListing {
 				.display(Gts.language.getCancelButtonItem())
 				.with(DataComponents.CUSTOM_NAME,
 						ColorUtil.parse(Gts.language.getCancelPurchaseButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getCancelButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
 				.onClick((action) -> {
 					ServerPlayer sender = action.getPlayer();
 					Page page = new ExpiredListings().getPage(action.getPlayer().getUUID());
@@ -91,7 +89,6 @@ public class ExpiredListing {
 				.set(11, receiveListing)
 				.set(13, listingDisplay)
 				.set(15, cancel);
-
 
 		GooeyPage page = GooeyPage.builder()
 				.template(template.build())

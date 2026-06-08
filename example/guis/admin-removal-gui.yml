@@ -1,0 +1,81 @@
+# DOCUMENTATION: https://docs.artillex-studios.com/axauctions.html
+# ITEM BUILDER: https://docs.artillex-studios.com/item-builder.html
+
+title: '&0Eliminando %item%'
+# a gui can have 1-6 rows
+rows: 1
+# valid values: CHEST, WORKBENCH, HOPPER, DISPENSER, BREWING
+type: CHEST
+
+# ----- ITEMS -----
+
+remove-1:
+  slot:
+  - 0
+  - 1
+  material: RED_STAINED_GLASS_PANE
+  name: '&#FF3333Eliminar silenciosamente'
+  lore:
+  - ' '
+  - ' &#FF0000✘ &#FFAAAAElimina el item'
+  - ' &#FF0000✘ &#FFAAAANo notifica al jugador'
+  - ' '
+  - '&#FF3333→ Click para eliminar item'
+  actions:
+  - '[SOUND] ui.button.click|1|1'
+
+remove-2:
+  slot:
+  - 2
+  - 3
+  material: ORANGE_STAINED_GLASS_PANE
+  name: '&#FF3333Eliminar y notificar'
+  lore:
+  - ' '
+  - ' &#FF0000✘ &#FFAAAAElimina el item'
+  - ' &#00FF00✔ &#AAFFAANotifica al jugador'
+  - ' '
+  - '&#FF3333→ Click para eliminar item'
+  actions:
+  - '[SOUND] ui.button.click|1|1'
+
+item:
+  slot: 4
+
+remove-3:
+  slot:
+  - 5
+  - 6
+  material: LIME_STAINED_GLASS_PANE
+  name: '&#33FF33Cancelar silenciosamente'
+  lore:
+  - ' '
+  - ' &#00FF00✔ &#AAFFAADevuelve el item'
+  - ' &#FF0000✘ &#FFAAAANo notifica al jugador'
+  - ' '
+  - '&#33FF33→ Click para devolver item'
+  actions:
+  - '[SOUND] ui.button.click|1|1'
+
+remove-4:
+  slot:
+  - 7
+  - 8
+  material: GREEN_STAINED_GLASS_PANE
+  name: '&#33FF33Cancelar y notificar'
+  lore:
+  - ' '
+  - ' &#00FF00✔ &#AAFFAADevuelve el item'
+  - ' &#00FF00✔ &#AAFFAANotifica al jugador'
+  - ' '
+  - '&#33FF33→ Click para devolver item'
+  actions:
+  - '[SOUND] ui.button.click|1|1'
+
+#decoration-example:
+#  slot: 13
+#  material: IRON_INGOT
+#  name: '&eDECORATION'
+#  lore:
+#    - ' '
+#    - ' &fWoah, what a cool decoration!'

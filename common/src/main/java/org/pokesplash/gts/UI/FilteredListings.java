@@ -15,27 +15,23 @@ import net.minecraft.world.item.component.ItemLore;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.Listing.Listing;
 import org.pokesplash.gts.Listing.PokemonListing;
-import org.pokesplash.gts.UI.button.ManageListings;
-import org.pokesplash.gts.UI.button.*;
+import org.pokesplash.gts.UI.button.Filler;
+import org.pokesplash.gts.UI.button.NextPage;
+import org.pokesplash.gts.UI.button.PreviousPage;
 import org.pokesplash.gts.UI.module.ListingInfo;
 import org.pokesplash.gts.UI.module.PokemonInfo;
 import org.pokesplash.gts.api.provider.ListingAPI;
+import org.pokesplash.gts.enumeration.FilterType;
+import org.pokesplash.gts.util.ColorUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
-/**
- * UI of the filtered Listings page.
- */
 public class FilteredListings {
 
-	/**
-	 * Method that returns the page.
-	 * @return Pokemon Listings page.
-	 */
 	public Page getPage(String searchValue) {
-
 
 		PlaceholderButton placeholder = new PlaceholderButton();
 
@@ -51,7 +47,7 @@ public class FilteredListings {
 				List<Component> lore = ListingInfo.parse(listing);
 
 				if (listing.isPokemon()) {
-					lore.addAll(PokemonInfo.parse((PokemonListing) listing));
+					lore.addAll(PokemonInfo.parseShort((PokemonListing) listing));
 				}
 
 				Button button = GooeyButton.builder()
@@ -69,21 +65,41 @@ public class FilteredListings {
 			}
 		}
 
+		Button backButton = GooeyButton.builder()
+				.display(Gts.language.getBackButtonItem())
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getBackButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getBackButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
+				.onClick((action) -> {
+					ServerPlayer sender = action.getPlayer();
+					UIManager.openUIForcefully(sender, new AllListings().getPage(FilterType.ALL));
+				})
+				.build();
+
+		Button refreshButton = GooeyButton.builder()
+				.display(Gts.language.getRefreshButtonItem())
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getRefreshButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getRefreshButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
+				.onClick((action) -> {
+					ServerPlayer sender = action.getPlayer();
+					UIManager.openUIForcefully(sender, new FilteredListings().getPage(searchValue));
+				})
+				.build();
+
 		ChestTemplate template = ChestTemplate.builder(6)
 				.rectangle(0, 0, 5, 9, placeholder)
 				.fill(Filler.getButton())
-				.set(48, SeePokemonListings.getButton())
-				.set(49, ManageListings.getButton())
-				.set(50, SeeItemListings.getButton())
-				.set(53, NextPage.getButton())
-				.set(45, PreviousPage.getButton())
-				.set(52, RelistAll.getButton())
+				.set(45, backButton)
+				.set(48, PreviousPage.getButton())
+				.set(49, refreshButton)
+				.set(50, NextPage.getButton())
 				.build();
 
 		LinkedPage page = PaginationHelper.createPagesFromPlaceholders(template, buttons, null);
-
 		page.setTitle(Gts.language.getFilteredListingsTitle().replaceAll("%search%", searchValue));
-
 		setPageTitle(page, searchValue);
 
 		return page;

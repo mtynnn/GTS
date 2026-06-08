@@ -1,0 +1,41 @@
+# DOCUMENTATION: https://docs.artillex-studios.com/axauctions.html
+# ITEM BUILDER: https://docs.artillex-studios.com/item-builder.html
+
+title: '&0Previsualizando %item%'
+# a gui can have 1-6 rows
+rows: 5
+
+# ----- ITEMS -----
+
+item:
+  slot: 4
+
+filler:
+  slot:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 5
+  - 6
+  - 7
+  - 8
+  - 36
+  - 37
+  - 38
+  - 39
+  - 40
+  - 41
+  - 42
+  - 43
+  - 44
+  material: LIGHT_BLUE_STAINED_GLASS_PANE
+  name: ' '
+
+#decoration-example:
+#  slot: 13
+#  material: IRON_INGOT
+#  name: '&eDECORATION'
+#  lore:
+#    - ' '
+#    - ' &fWoah, what a cool decoration!'

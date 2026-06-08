@@ -9,7 +9,9 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.UI.AllListings;
+import org.pokesplash.gts.enumeration.FilterType;
 import org.pokesplash.gts.command.subcommand.*;
+import org.pokesplash.gts.util.Utils;
 import org.pokesplash.gts.command.superclass.BaseCommand;
 
 import java.util.Arrays;
@@ -25,7 +27,7 @@ public class GtsCommand extends BaseCommand {
 			new ThreadFactoryBuilder().setNameFormat("GTS-Search-Thread-#%d").setDaemon(true).build());
 
 	public GtsCommand() {
-		super("gts", Arrays.asList("gts"),
+		super("gts", Arrays.asList("ah", "auction", "auctions", "subasta", "subastas"),
 				"base",
 				Arrays.asList(new Manage(), new Expired(), new List(), new History(),
 						new Reload(), new Open(), new Debug(), new Search(), new GetPrice(), new Timeout(),
@@ -55,31 +57,29 @@ public class GtsCommand extends BaseCommand {
 	public void runSync(ServerPlayer player) {
 
 		try {
-			Page page = new AllListings().getPage();
+			Page page = new AllListings().getPage(FilterType.ALL);
 
 			UIManager.openUIForcefully(player, page);
 		} catch (Exception e) {
 			e.printStackTrace();
-			player.sendSystemMessage(Component.literal("§cSomething went wrong, please tell an admin " +
-					"to check the console."));
+			Utils.sendMsg(player, Gts.language.getSomethingWentWrong());
 		}
 	}
 
 	public void runAsync(ServerPlayer player) {
 
-		player.sendSystemMessage(Component.literal("§2Loading GTS Listings."));
+		Utils.sendMsg(player, Gts.language.getLoadingListings());
 
 		ASYNC_EXEC.submit(() -> {
 			try {
-				Page page = new AllListings().getPage();
+				Page page = new AllListings().getPage(FilterType.ALL);
 
 				Gts.server.execute(() -> {
 					UIManager.openUIForcefully(player, page);
 				});
 			} catch (Exception e) {
 				e.printStackTrace();
-				player.sendSystemMessage(Component.literal("§cSomething went wrong, please tell an admin " +
-						"to check the console."));
+				Utils.sendMsg(player, Gts.language.getSomethingWentWrong());
 			}
 		});
 	}

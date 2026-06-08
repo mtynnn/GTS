@@ -7,10 +7,13 @@ import ca.landonjw.gooeylibs2.api.page.Page;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
+import net.minecraft.world.item.component.ItemLore;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.UI.PokemonListings;
 import org.pokesplash.gts.enumeration.Sort;
 import org.pokesplash.gts.util.ColorUtil;
+
+import java.util.stream.Collectors;
 
 public abstract class SeePokemonListings {
     public static Button getButton() {
@@ -18,6 +21,10 @@ public abstract class SeePokemonListings {
                 .display(Gts.language.getPokemonListingsButtonItem())
                 .with(DataComponents.CUSTOM_NAME,
                         ColorUtil.parse(Gts.language.getPokemonListingsButtonLabel()))
+                .with(DataComponents.LORE, new ItemLore(
+                        Gts.language.getSeePokemonButtonLore().stream()
+                                .map(ColorUtil::parse)
+                                .collect(Collectors.toList())))
                 .with(DataComponents.HIDE_ADDITIONAL_TOOLTIP, Unit.INSTANCE)
                 .onClick((action) -> {
                     ServerPlayer sender = action.getPlayer();

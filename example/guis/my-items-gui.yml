@@ -1,0 +1,192 @@
+# DOCUMENTATION: https://docs.artillex-studios.com/axauctions.html
+# ITEM BUILDER: https://docs.artillex-studios.com/item-builder.html
+
+title: '&0Mis Items (%current_page%/%max_page%)'
+# a gui can have 1-6 rows
+rows: 6
+# how many items should be shown on a single page?
+page-size: 45
+# should the gui auto update?
+# in ticks, 20 ticks = 1 second
+# set to -1 to disable auto updater
+auto-update-ticks: -1
+
+# ----- ITEMS -----
+
+## disabled by default, uncomment it to enable it!
+## this will only work if you have the categories enabled!
+#category:
+#  slot: 40
+#  material: "NOTE_BLOCK"
+#  name: "&#00DDFF ᴄᴀᴛᴇɢᴏʀɪᴀ"
+#  lore:
+#    - " "
+#    - " &#00DDFFSeleccionado actualmente:"
+#    - "  &#444444❙ &#AAFFAA%selected_category%"
+#    - " "
+#    - "&#00DDFF→ Click para cambiar categoría"
+#  actions:
+#    - "[CATEGORY]"
+#    - "[SOUND] ui.button.click|1|1"
+
+## disabled by default, uncomment it to enable it!
+## this will only work if you have the separate-expired-items setting enabled in the config!
+#expired-items:
+#  slot: 47
+#  material: "IRON_INGOT"
+#  name: "&#00DDFF ᴍɪs ɪᴛᴇᴍs ᴇxᴘɪʀᴀᴅᴏs"
+#  lore:
+#    - " "
+#    - " &fHaz click aquí para ir"
+#    - " &fa la página de items expirados!"
+#    - " "
+#    - "&#00DDFF→ Click para items expirados"
+#  actions:
+#    - "[MENU] expired-items"
+#    - "[SOUND] ui.button.click|1|1"
+
+main:
+  slot: 45
+  material: CHEST
+  name: '&#00DDFF ᴄᴀsᴀ ᴅᴇ sᴜʙᴀsᴛᴀs'
+  lore:
+  - ' '
+  - ' &fHaz click aquí para ir'
+  - ' &fa la página principal!'
+  - ' '
+  - '&#00DDFF→ Click para página principal'
+  actions:
+  - '[MENU] main'
+  - '[SOUND] ui.button.click|1|1'
+
+sorting:
+  slot: 46
+  # only the active item will be shown
+  newest:
+    material: GLOWSTONE_DUST
+    name: '&#00DDFF ᴏʀᴅᴇɴᴀᴍɪᴇɴᴛᴏ'
+    lore:
+    - ' '
+    - ' &#00DDFFSeleccionado actualmente:'
+    - '  &#444444❙ &#AAFFAAMás reciente a antiguo'
+    - '  &#444444❙ &#BBBBBBAntiguo a reciente'
+    - '  &#444444❙ &#BBBBBBMás barato a costoso'
+    - '  &#444444❙ &#BBBBBBMás costoso a barato'
+    - ' '
+    - '&#00DDFF→ Click para cambiar ordenamiento'
+  oldest:
+    material: REDSTONE
+    name: '&#00DDFF ᴏʀᴅᴇɴᴀᴍɪᴇɴᴛᴏ'
+    lore:
+    - ' '
+    - ' &#00DDFFSeleccionado actualmente:'
+    - '  &#444444❙ &#BBBBBBMás reciente a antiguo'
+    - '  &#444444❙ &#AAFFAAAntiguo a reciente'
+    - '  &#444444❙ &#BBBBBBMás barato a costoso'
+    - '  &#444444❙ &#BBBBBBMás costoso a barato'
+    - ' '
+    - '&#00DDFF→ Click para cambiar ordenamiento'
+  cheapest:
+    material: GLOWSTONE_DUST
+    name: '&#00DDFF ᴏʀᴅᴇɴᴀᴍɪᴇɴᴛᴏ'
+    lore:
+    - ' '
+    - ' &#00DDFFSeleccionado actualmente:'
+    - '  &#444444❙ &#BBBBBBMás reciente a antiguo'
+    - '  &#444444❙ &#BBBBBBAntiguo a reciente'
+    - '  &#444444❙ &#AAFFAAMás barato a costoso'
+    - '  &#444444❙ &#BBBBBBMás costoso a barato'
+    - ' '
+    - '&#00DDFF→ Click para cambiar ordenamiento'
+  priciest:
+    material: REDSTONE
+    name: '&#00DDFF ᴏʀᴅᴇɴᴀᴍɪᴇɴᴛᴏ'
+    lore:
+    - ' '
+    - ' &#00DDFFSeleccionado actualmente:'
+    - '  &#444444❙ &#BBBBBBMás reciente a antiguo'
+    - '  &#444444❙ &#BBBBBBAntiguo a reciente'
+    - '  &#444444❙ &#BBBBBBMás barato a costoso'
+    - '  &#444444❙ &#AAFFAAMás costoso a barato'
+    - ' '
+    - '&#00DDFF→ Click para cambiar ordenamiento'
+  actions:
+  - '[SOUND] ui.button.click|1|1'
+
+previous-page:
+  slot: 48
+  material: ARROW
+  name: '&#00DDFF ᴘᴀɢɪɴᴀ ᴀɴᴛᴇʀɪᴏʀ'
+  lore:
+  - ' '
+  - ' &fHaz click aquí para volver'
+  - ' &fa la página anterior!'
+  - ' '
+  - '&#00DDFF→ Click para página anterior'
+  actions:
+  - '[PAGE] previous'
+  - '[SOUND] ui.button.click|1|1'
+
+refresh:
+  slot: 49
+  material: SUNFLOWER
+  name: '&#00DDFF ᴀᴄᴛᴜᴀʟɪᴢᴀʀ'
+  lore:
+  - ' '
+  - ' &fHaz click aquí para'
+  - ' &factualizador la página!'
+  - ' '
+  - '&#00DDFF→ Click para actualizar'
+  actions:
+  - '[REFRESH]'
+  - '[SOUND] ui.button.click|1|1'
+
+next-page:
+  slot: 50
+  material: ARROW
+  name: '&#00DDFF ꜱɪɢᴜɪᴇɴᴛᴇ ᴘᴀɢɪɴᴀ'
+  lore:
+  - ' '
+  - ' &fHaz click aquí para ir'
+  - ' &fa la siguiente página!'
+  - ' '
+  - '&#00DDFF→ Click para siguiente página'
+  actions:
+  - '[PAGE] next'
+  - '[SOUND] ui.button.click|1|1'
+
+# currency:
+#   slot: 52
+#   material: HOPPER
+#   name: '&#00DDFF ᴍᴏɴᴇᴅᴀ'
+#   lore:
+#   - ' '
+#   - ' &#00DDFFSeleccionado actualmente:'
+#   - '  &#444444❙ &#AAFFAA%selected_currency%'
+#   - ' '
+#   - '&#00DDFF→ Click para cambiar moneda'
+#   # used for the %selected_currency% when none is selected
+#   no-currency: Todas
+#   actions:
+#   - '[SOUND] ui.button.click|1|1'
+
+information:
+  slot: 53
+  material: BOOK
+  name: '&#00DDFF ɪɴғᴏʀᴍᴀᴄɪóɴ'
+  lore:
+  - ' '
+  - ' &f¡En este menú, puedes recuperar'
+  - ' &ftus items de la casa de subastas!'
+  - ' '
+  - '&#AADDFFEstás vendiendo &f%sell_count%/%sell_limit% &#AADDFFitems!'
+  - ' '
+  - '&#00DDFF→ Vender items &#DDDDDD» &#AAFFFF/ah sell'
+
+#decoration-example:
+#  slot: 13
+#  material: IRON_INGOT
+#  name: '&eDECORATION'
+#  lore:
+#    - ' '
+#    - ' &fWoah, what a cool decoration!'

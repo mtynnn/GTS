@@ -6,8 +6,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import org.pokesplash.gts.util.Utils;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.UI.ManageListings;
 import org.pokesplash.gts.command.superclass.Subcommand;
@@ -46,7 +46,7 @@ public class Manage extends Subcommand {
 	public int run(CommandContext<CommandSourceStack> context) {
 
 		if (!context.getSource().isPlayer()) {
-			context.getSource().sendSystemMessage(Component.literal("This command must be ran by a player."));
+			Utils.sendMsg(context.getSource(), Gts.language.getPlayerOnly());
 			return 1;
 		}
 

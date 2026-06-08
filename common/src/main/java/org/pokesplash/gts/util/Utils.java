@@ -392,7 +392,7 @@ public abstract class Utils {
 	 * @param command The command the text should run when clicked.
 	 */
 	public static void broadcastClickable(String message, String command) {
-		Component component = Component.literal(message).setStyle(Style.EMPTY.withClickEvent(
+		Component component = ColorUtil.parse(message).copy().setStyle(Style.EMPTY.withClickEvent(
 				new ClickEvent(ClickEvent.Action.RUN_COMMAND, command)));
 
 		MinecraftServer server = Gts.server;
@@ -423,5 +423,13 @@ public abstract class Utils {
 		}
 
 		return player.getInventory().getFreeSlot() != -1;
+	}
+
+	public static void sendMsg(net.minecraft.commands.CommandSourceStack source, String message) {
+		source.sendSystemMessage(ColorUtil.parse(Gts.language.getPrefix() + message));
+	}
+
+	public static void sendMsg(ServerPlayer player, String message) {
+		player.sendSystemMessage(ColorUtil.parse(Gts.language.getPrefix() + message));
 	}
 }

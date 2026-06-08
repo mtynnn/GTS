@@ -6,12 +6,12 @@ import com.mojang.brigadier.tree.CommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.UuidArgument;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.Listing.Listing;
 import org.pokesplash.gts.UI.SingleListing;
 import org.pokesplash.gts.command.superclass.Subcommand;
+import org.pokesplash.gts.util.Utils;
 
 import java.util.UUID;
 
@@ -21,11 +21,6 @@ public class Open extends Subcommand {
 		super("§9Usage:\n§3- gts <listing id>");
 	}
 
-	/**
-	 * Method used to add to the base command for this subcommand.
-	 *
-	 * @return source to complete the command.
-	 */
 	@Override
 	public CommandNode<CommandSourceStack> build() {
 		return Commands.argument("id", UuidArgument.uuid())
@@ -41,16 +36,11 @@ public class Open extends Subcommand {
 				.build();
 	}
 
-	/**
-	 * Method to perform the logic when the command is executed.
-	 * @param context the source of the command.
-	 * @return integer to complete command.
-	 */
 	@Override
 	public int run(CommandContext<CommandSourceStack> context) {
 
 		if (!context.getSource().isPlayer()) {
-			context.getSource().sendSystemMessage(Component.literal("This command must be ran by a player."));
+			Utils.sendMsg(context.getSource(), Gts.language.getPlayerOnly());
 			return 1;
 		}
 

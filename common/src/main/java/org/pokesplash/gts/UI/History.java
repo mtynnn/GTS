@@ -1,5 +1,6 @@
 package org.pokesplash.gts.UI;
 
+import ca.landonjw.gooeylibs2.api.UIManager;
 import ca.landonjw.gooeylibs2.api.button.Button;
 import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import ca.landonjw.gooeylibs2.api.button.PlaceholderButton;
@@ -10,12 +11,15 @@ import ca.landonjw.gooeylibs2.api.template.types.ChestTemplate;
 import com.cobblemon.mod.common.item.PokemonItem;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.component.ItemLore;
 import org.pokesplash.gts.Gts;
-import org.pokesplash.gts.UI.button.ManageListings;
-import org.pokesplash.gts.UI.button.*;
+import org.pokesplash.gts.UI.button.Filler;
+import org.pokesplash.gts.UI.button.NextPage;
+import org.pokesplash.gts.UI.button.PreviousPage;
 import org.pokesplash.gts.UI.module.PokemonInfo;
+import org.pokesplash.gts.enumeration.FilterType;
 import org.pokesplash.gts.history.HistoryItem;
 import org.pokesplash.gts.history.ItemHistoryItem;
 import org.pokesplash.gts.history.PlayerHistory;
@@ -24,16 +28,10 @@ import org.pokesplash.gts.util.ColorUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
-/**
- * UI of the Manage Listings page.
- */
 public class History {
 
-	/**
-	 * Method that returns the page.
-	 * @return Listings page.
-	 */
 	public Page getPage(UUID owner) {
 
 		PlaceholderButton placeholder = new PlaceholderButton();
@@ -43,15 +41,12 @@ public class History {
 		List<Button> buttons = new ArrayList<>();
 
 		if (playerHistory != null) {
-			// Gets all the items and sorts them by the sold date.
 			List<HistoryItem> items = playerHistory.getListings();
 			items.sort(Comparator.comparing(HistoryItem::getSoldDate));
 			Collections.reverse(items);
 
-			// For each item, create a button.
 			for (HistoryItem item : items) {
 
-				// Standard lore for any item.
 				List<Component> lore = new ArrayList<>();
 
 				lore.add(ColorUtil.parse(Gts.language.getSeller() + item.getSellerName()));
@@ -60,25 +55,21 @@ public class History {
 
 				String pattern = "d MMMM yyyy";
 				SimpleDateFormat format = new SimpleDateFormat(pattern);
-
 				lore.add(ColorUtil.parse(Gts.language.getSold_date() +
 						format.format(new Date(item.getSoldDate()))));
 
 				Button button = null;
 
-				// Pokemon specific lore and button.
 				if (item.isPokemon()) {
 					PokemonHistoryItem pokemonItem = (PokemonHistoryItem) item;
-					lore.addAll(PokemonInfo.parse(pokemonItem.getListing()));
+					lore.addAll(PokemonInfo.parseShort(pokemonItem.getListing()));
 
 					button = GooeyButton.builder()
 							.display(PokemonItem.from(pokemonItem.getListing(), 1))
 							.with(DataComponents.CUSTOM_NAME, pokemonItem.getDisplayName())
 							.with(DataComponents.LORE, new ItemLore(lore))
 							.build();
-				}
-				// Item specific button.
-				else {
+				} else {
 					ItemHistoryItem itemHistoryItem = (ItemHistoryItem) item;
 
 					if (itemHistoryItem.getListing() != null) {
@@ -91,27 +82,47 @@ public class History {
 					}
 				}
 
-				// Adds the button to the list.
 				if (button != null) {
 					buttons.add(button);
 				}
 			}
 		}
 
+		Button backButton = GooeyButton.builder()
+				.display(Gts.language.getBackButtonItem())
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getBackButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getBackButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
+				.onClick((action) -> {
+					ServerPlayer sender = action.getPlayer();
+					UIManager.openUIForcefully(sender, new AllListings().getPage(FilterType.ALL));
+				})
+				.build();
+
+		Button refreshButton = GooeyButton.builder()
+				.display(Gts.language.getRefreshButtonItem())
+				.with(DataComponents.CUSTOM_NAME, ColorUtil.parse(Gts.language.getRefreshButtonLabel()))
+				.with(DataComponents.LORE, new ItemLore(
+						Gts.language.getRefreshButtonLore().stream()
+								.map(ColorUtil::parse).collect(Collectors.toList())))
+				.onClick((action) -> {
+					ServerPlayer sender = action.getPlayer();
+					UIManager.openUIForcefully(sender, new History().getPage(sender.getUUID()));
+				})
+				.build();
+
 		ChestTemplate template = ChestTemplate.builder(6)
 				.rectangle(0, 0, 5, 9, placeholder)
 				.fill(Filler.getButton())
-				.set(48, SeePokemonListings.getButton())
-				.set(49, ManageListings.getButton())
-				.set(50, SeeItemListings.getButton())
-				.set(53, NextPage.getButton())
-				.set(45, PreviousPage.getButton())
+				.set(45, backButton)
+				.set(48, PreviousPage.getButton())
+				.set(49, refreshButton)
+				.set(50, NextPage.getButton())
 				.build();
 
 		LinkedPage page = PaginationHelper.createPagesFromPlaceholders(template, buttons, null);
-
 		page.setTitle(Gts.language.getHistoryTitle());
-
 		setPageTitle(page);
 
 		return page;

@@ -6,7 +6,6 @@ import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.mojang.serialization.JsonOps;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.pokesplash.gts.Gts;
@@ -21,10 +20,6 @@ public class SaveItem extends Subcommand {
 		super("§9Usage:\n§3- gts saveitem");
 	}
 
-	/**
-	 * Method used to add to the base command for this subcommand.
-	 * @return source to complete the command.
-	 */
 	@Override
 	public LiteralCommandNode<CommandSourceStack> build() {
 		return Commands.literal("saveitem")
@@ -40,27 +35,19 @@ public class SaveItem extends Subcommand {
 				.build();
 	}
 
-	/**
-	 * Method to perform the logic when the command is executed.
-	 * @param context the source of the command.
-	 * @return integer to complete command.
-	 */
 	@Override
 	public int run(CommandContext<CommandSourceStack> context) {
 
 		if (!context.getSource().isPlayer()) {
-			context.getSource().sendSystemMessage(Component.literal(
-					"This command must be ran by a player."
-			));
+			Utils.sendMsg(context.getSource(), Gts.language.getPlayerOnly());
 			return 1;
 		}
 
 		try {
 			ItemStack item = context.getSource().getPlayer().getMainHandItem();
 
-			// If they aren't holding an item. Message them
 			if (item.getItem().equals(Items.AIR)) {
-				context.getSource().sendSystemMessage(Component.literal("§cYou must be holding an item."));
+				Utils.sendMsg(context.getSource(), Gts.language.getMustHoldItem());
 				return 1;
 			}
 
@@ -70,12 +57,12 @@ public class SaveItem extends Subcommand {
 			CompletableFuture<Boolean> result = Utils.writeFileAsync("/config/gts/", "item.json", data);
 
 			if (result.join()) {
-				context.getSource().sendSystemMessage(Component.literal("§2Item successfully saved."));
+				Utils.sendMsg(context.getSource(), Gts.language.getSaveItemSuccess());
 			} else {
-				context.getSource().sendSystemMessage(Component.literal("§cUnable to save item!."));
+				Utils.sendMsg(context.getSource(), Gts.language.getSaveItemFail());
 			}
 		} catch (Exception e) {
-			context.getSource().sendSystemMessage(Component.literal(e.getMessage()));
+			Utils.sendMsg(context.getSource(), Gts.language.getSomethingWentWrong());
 			e.printStackTrace();
 		}
 

@@ -1,0 +1,54 @@
+# DOCUMENTATION: https://docs.artillex-studios.com/axauctions.html
+# ITEM BUILDER: https://docs.artillex-studios.com/item-builder.html
+
+title: '&0Comprando %item%'
+# a gui can have 1-6 rows
+rows: 1
+# valid values: CHEST, WORKBENCH, HOPPER, DISPENSER, BREWING
+type: CHEST
+
+# ----- ITEMS -----
+
+confirm:
+  slot:
+  - 0
+  - 1
+  - 2
+  - 3
+  material: LIME_STAINED_GLASS_PANE
+  name: '&#33FF33ᴄᴏɴғɪʀᴍᴀʀ'
+  lore:
+  - ' '
+  - ' &f¿Estás seguro de que quieres comprar el item?'
+  - ' &f¡Esta acción es irreversible!'
+  - ' '
+  - '&#33FF33→ Click para comprar item'
+  actions:
+  - '[SOUND] ui.button.click|1|1'
+
+item:
+  slot: 4
+
+cancel:
+  slot:
+  - 5
+  - 6
+  - 7
+  - 8
+  material: RED_STAINED_GLASS_PANE
+  name: '&#FF3333ᴄᴀɴᴄᴇʟᴀʀ'
+  lore:
+  - ' '
+  - ' &f¡Haz click aquí para volver al menú de subastas!'
+  - ' '
+  - '&#FF3333→ Click para cancelar compra'
+  actions:
+  - '[SOUND] ui.button.click|1|1'
+
+#decoration-example:
+#  slot: 13
+#  material: IRON_INGOT
+#  name: '&eDECORATION'
+#  lore:
+#    - ' '
+#    - ' &fWoah, what a cool decoration!'

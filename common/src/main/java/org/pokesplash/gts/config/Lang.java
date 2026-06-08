@@ -9,6 +9,8 @@ import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.util.CodecUtils;
 import org.pokesplash.gts.util.Utils;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Lang {
@@ -25,93 +27,172 @@ public class Lang {
 	/**
 	 * Titles
 	 */
-	private String title; // Title shown on the top of the UI
-	private String itemListingsTitle; // Item only page.
-	private String pokemonListingsTitle; // Pokemon only page.
-	private String expiredListingsTitle; // Title shown for all expired listings.
-	private String pokemonTitle; // Title show for expired Pokemon.
-	private String itemTitle; // Title shown at the top of the expired item listing.
-	private String filteredListingsTitle; // Title shown when using /search
-	private String historyTitle; // Title for the history page.
-	private String manageTitle; // Title for manage listings page.
+	private String title;
+	private String itemListingsTitle;
+	private String pokemonListingsTitle;
+	private String expiredListingsTitle;
+	private String pokemonTitle;
+	private String itemTitle;
+	private String filteredListingsTitle;
+	private String historyTitle;
+	private String manageTitle;
 
+
+	/**
+	 * Prefix
+	 */
+	private String prefix;
 
 	/**
 	 * Messages
 	 */
-	private String purchaseMessageBuyer; // Message that is sent to the buyer of a listing
-	private String cancelListing; // Message sent to the player that cancels a listing.
-	private String returnListingSuccess; // Message sent to the player that gets a listing returned
-	private String returnListingFail; // Message sent to the player that gets a failed receive listing
-	private String maximumListings; // Message for when a player exceeds their maximum amount of listings.
-	private String minimumListingPrice; // Message to inform the player of the minimum listing amount for that
-	private String maximumListingPrice; // Message to inform player of the maximum listing amount.
-	private String listingSuccess; // Message to confirm a listing.
-	private String listingFail; // Message to confirm a listing.
-	private String noPokemonInSlot; // No listing in the given slot.
-	private String noItemInHand; // No item in the players hand.
-	private String bannedItem; // The item they're trying to list is banned.
-	private String bannedPokemon; // The Pokemon they're trying to list is banned.
-	private String insufficientItems; // Not enough items in the players inventory
-	private String itemIdNotFound; // Couldn't find the item ID of the given item.
-	private String zeroItemAmount; // If the item amount given is 0.
-	private String reloadMessage; // Message sent when reload command is executed.
-	private String insufficientFunds; // Not enough monies.
-	private String listingBought; // Message sent to seller when their listing is bought.
-	private String newListingBroadcast; // Message sent when a new listing is added.
-	private String insufficientInventorySpace; // Message sent when a player doesn't have enough inventory space to receive a listing.
-	private String onlyOnePokemonInParty; // Message sent when a player tries to list a Pokemon when they only have one in their party.
+	private String purchaseMessageBuyer;
+	private String cancelListing;
+	private String returnListingSuccess;
+	private String returnListingFail;
+	private String maximumListings;
+	private String minimumListingPrice;
+	private String maximumListingPrice;
+	private String listingSuccess;
+	private String listingFail;
+	private String noPokemonInSlot;
+	private String noItemInHand;
+	private String bannedItem;
+	private String bannedPokemon;
+	private String insufficientItems;
+	private String itemIdNotFound;
+	private String zeroItemAmount;
+	private String reloadMessage;
+	private String insufficientFunds;
+	private String listingBought;
+	private String newListingBroadcast;
+	private String insufficientInventorySpace;
+	private String onlyOnePokemonInParty;
+	private String playerOnly;
+	private String somethingWentWrong;
+	private String loadingListings;
+	private String notTradeable;
+	private String inBattle;
+	private String timedOut;
+	private String stackSizeError;
+	private String averagePrice;
+	private String noSalesHistory;
+	private String mustHoldItem;
+	private String itemDescriptionMessage;
+	private String debugModeSet;
+	private String timeoutRemoved;
+	private String timeoutSet;
+	private String playerNotFound;
+	private String saveItemSuccess;
+	private String saveItemFail;
 
 	/**
-	 *  Button Labels
+	 * Button Labels
 	 */
+	private String confirmPurchaseButtonLabel;
+	private String cancelPurchaseButtonLabel;
+	private String removeListingButtonLabel;
+	private String itemListingsButtonLabel;
+	private String pokemonListingsButtonLabel;
+	private String manageListingsButtonLabel;
+	private String nextPageButtonLabel;
+	private String previousPageButtonLabel;
+	private String sortByPriceButtonLabel;
+	private String sortByNewestButtonLabel;
+	private String sortByPokemonButtonLabel;
+	private String sortByNameButtonLabel;
+	private String receiveListingButtonLabel;
+	private String relistExpiredButtonLabel;
+	private String expiredListingButtonLabel;
+	private String pokemonBall;
+	private String informationButtonLabel;
+	private String refreshButtonLabel;
+	private String filterButtonLabel;
+	private String backButtonLabel;
 
-	private String confirmPurchaseButtonLabel; // The name of the "Confirm Purchase" button.
-	private String cancelPurchaseButtonLabel; // The name of the "Cancel Purchase" button.
-	private String removeListingButtonLabel; // The name of the "Remove Listing" button.
-	private String itemListingsButtonLabel; // The name of the "See Item Listings" button.
-	private String pokemonListingsButtonLabel; // The name of the "See Pokemon Listings" button.
-	private String manageListingsButtonLabel; // The name of the "Manage Listings" button.
-	private String nextPageButtonLabel; // The name of the "Next Page" button.
-	private String previousPageButtonLabel; // The name of the "Previous Page" button.
-	private String sortByPriceButtonLabel; // The name of the "Sort By Price" button.
-	private String sortByNewestButtonLabel; // The name of the "Sort By Newest" button.
-	private String sortByPokemonButtonLabel; // The name of the "Sort By Pokemon" button.
-	private String sortByNameButtonLabel; // The name of the "Sort By Name" button.
-	private String receiveListingButtonLabel; // The name of the "Receive Listing" button.
-	private String relistExpiredButtonLabel; // The label of the button that relists all expired listings.
-	private String expiredListingButtonLabel; // The label for the expired listing button.
-	private String pokemonBall; // The label for the ball that the Pokemon is held in.
+	/**
+	 * Button Lores
+	 */
+	private List<String> nextPageButtonLore;
+	private List<String> previousPageButtonLore;
+	private List<String> manageListingsButtonLore;
+	private List<String> expiredListingsButtonLore;
+	private List<String> relistButtonLore;
+	private List<String> filterButtonLoreAll;
+	private List<String> filterButtonLorePokemon;
+	private List<String> filterButtonLoreItems;
+	private List<String> sortButtonLorePrice;
+	private List<String> sortButtonLoreDate;
+	private List<String> sortButtonLoreName;
+	private List<String> purchaseButtonLore;
+	private List<String> cancelButtonLore;
+	private List<String> removeListingButtonLore;
+	private List<String> receiveListingButtonLore;
+	private List<String> informationButtonLore;
+	private List<String> refreshButtonLore;
+	private List<String> backButtonLore;
+	private List<String> seePokemonButtonLore;
+	private List<String> seeItemsButtonLore;
 
 	/**
 	 * Button Materials
 	 */
+	private JsonElement itemListingsButtonItem;
+	private JsonElement pokemonListingsButtonItem;
+	private JsonElement manageListingsButtonItem;
+	private JsonElement expiredListingsButtonItem;
+	private JsonElement nextPageButtonItems;
+	private JsonElement previousPageButtonItems;
+	private JsonElement fillerItem;
+	private JsonElement purchaseButtonItem;
+	private JsonElement cancelButtonItem;
+	private JsonElement removeListingButtonItem;
+	private JsonElement sortByPriceButtonItem;
+	private JsonElement sortByNewestButtonItem;
+	private JsonElement sortByNameButtonItem;
+	private JsonElement relistExpiredButtonItem;
+	private JsonElement informationButtonItem;
+	private JsonElement refreshButtonItem;
+	private JsonElement filterAllButtonItem;
+	private JsonElement filterPokemonButtonItem;
+	private JsonElement filterItemsButtonItem;
+	private JsonElement backButtonItem;
 
-	private JsonElement itemListingsButtonItem; // The display item for the "item listings" menu.
-	private JsonElement pokemonListingsButtonItem; // The display item for the "pokemon listings" menu.
-	private JsonElement manageListingsButtonItem; // The display item for the "manage listings" menu.
-	private JsonElement expiredListingsButtonItem; // The material for the expired listings button.
-	private JsonElement nextPageButtonItems; // The display item for the "next page" button.
-	private JsonElement previousPageButtonItems; // The display item for the "previous page" button.
-	private JsonElement fillerItem; // The filler item for the UI.
-	private JsonElement purchaseButtonItem; // The material for the purchase button.
-	private JsonElement cancelButtonItem; // The material for the cancel button.
-	private JsonElement removeListingButtonItem; // The material for the remove listing moderation button.
-	private JsonElement sortByPriceButtonItem; // The material for the sort by price button.
-	private JsonElement sortByNewestButtonItem; // The material for the sort by newest button.
-	private JsonElement sortByNameButtonItem; // The material for the sort by name button.
-	private JsonElement relistExpiredButtonItem; // The material for the relist button.
+	/**
+	 * Pokemon lore labels
+	 */
+	private String pokemonLoreInfoHeader;
+	private String pokemonLoreSpecies;
+	private String pokemonLoreType;
+	private String pokemonLoreNature;
+	private String pokemonLoreAbility;
+	private String pokemonLoreHA;
+	private String pokemonLoreBall;
+	private String pokemonLoreShiny;
+	private String pokemonLoreGenderMale;
+	private String pokemonLoreGenderFemale;
+	private String pokemonLoreSize;
+	private String pokemonLorePokerus;
+	private String pokemonLoreStatsHeader;
+	private String pokemonLoreHP;
+	private String pokemonLoreAtk;
+	private String pokemonLoreDef;
+	private String pokemonLoreSpAtk;
+	private String pokemonLoreSpDef;
+	private String pokemonLoreSpeed;
+	private String pokemonLoreMovesHeader;
+	private String pokemonLoreBreedable;
+	private String pokemonLoreUnbreedable;
+	private String pokemonLoreIvsLine;
 
 	/**
 	 * Placeholders
 	 */
-
-	private String seller; // Seller of the listing.
-	private String price; // Price of the listing.
-	private String remainingTime; // Time Remaining for the listing.
-	private String sold_date; // The date an item was sold.
-	private String buyer; // The buyer of a product.
-
+	private String seller;
+	private String price;
+	private String remainingTime;
+	private String sold_date;
+	private String buyer;
 
 
 	/**
@@ -119,72 +200,277 @@ public class Lang {
 	 */
 	public Lang() {
         version = Gts.LANG_FILE_VERSION;
-		title = "§3Gts";
-		expiredListingsTitle = "§3Gts - Expired";
-		itemTitle = "§3Gts - Item";
-		pokemonTitle = "§3Gts - Pokemon";
-		filteredListingsTitle = "§3Gts - %search%";
-		historyTitle = "§3Gts - History";
-		itemListingsTitle = "§3Gts - Items";
-		pokemonListingsTitle = "§3Gts - Pokemon";
-		manageTitle = "§3Gts - Manage";
-		purchaseMessageBuyer = "§2You have bought {listing} from {seller}!";
-		relistExpiredButtonLabel = "§9Relist Expired";
+		prefix = "&8[&#00DDFFɢᴛs&8] &r";
+		title = "§0ɢᴛs";
+		expiredListingsTitle = "§0ɪᴛᴇᴍs ᴇxᴘɪʀᴀᴅᴏs";
+		itemTitle = "§0ɢᴛs · ɪᴛᴇᴍ";
+		pokemonTitle = "§0ɢᴛs · ᴘᴏᴋᴇᴍᴏɴ";
+		filteredListingsTitle = "§0ʙúsǫᴜᴇᴅᴀ: %search%";
+		historyTitle = "§0ʜɪsᴛᴏʀɪᴀʟ";
+		itemListingsTitle = "§0ɢᴛs · ɪᴛᴇᴍs";
+		pokemonListingsTitle = "§0ɢᴛs · ᴘᴏᴋᴇᴍᴏɴ";
+		manageTitle = "§0ᴍɪs ʟɪsᴛɪɴɢs";
+		purchaseMessageBuyer = "&#33FF33¡Compraste {listing} de {seller}!";
+		relistExpiredButtonLabel = "&#00DDFF ʀᴇᴘᴜʙʟɪᴄᴀʀ ᴛᴏᴅᴏ";
 		relistExpiredButtonItem = CodecUtils.encodeItem(new ItemStack(CobblemonItems.RARE_CANDY));
-		cancelListing = "§6The {listing} listing has been cancelled!";
-		returnListingSuccess = "§2You have received the {listing} listing!";
-		returnListingFail = "§cCould not receive the {listing} listing.";
-		maximumListings = "§cYou can only have a total of {max_listings} listings.";
-		minimumListingPrice = "§cYour listing must meet the minimum price of {min_price}";
-		maximumListingPrice = "§cYour listing must be below the maximum price of {max_price}";
-		listingSuccess = "§2Successfully added your {listing} to GTS!";
-		listingFail = "§cFailed to add your {listing} to GTS!";
-		noPokemonInSlot = "§cCould not find any Pokemon in the given slot!";
-		noItemInHand = "§cCould not find an item in your hand!";
-		bannedItem = "§c{listing} is banned from GTS!";
-		bannedPokemon = "§c{listing} is banned from GTS!";
-		insufficientItems = "§cYou don't have enough {listing} in your inventory to list this item!";
-		itemIdNotFound = "§cCould not find an item!";
-		zeroItemAmount = "§cListing amount can not be zero!";
-		reloadMessage = "§2Reloaded Configs!";
-		insufficientFunds = "§cYou do not have enough money to purchase this listing!";
-		listingBought = "§2Your {listing} has been bought by {buyer}";
+		cancelListing = "&#FF9900¡El listing de {listing} fue cancelado!";
+		returnListingSuccess = "&#33FF33¡Recibiste el listing de {listing}!";
+		returnListingFail = "&#FF3333No se pudo recibir el listing de {listing}.";
+		maximumListings = "&#FF3333Solo puedes tener {max_listings} listings activos.";
+		minimumListingPrice = "&#FF3333Tu listing debe superar el precio mínimo de {min_price}";
+		maximumListingPrice = "&#FF3333Tu listing debe estar por debajo del precio máximo de {max_price}";
+		listingSuccess = "&#33FF33¡Agregaste {listing} al GTS exitosamente!";
+		listingFail = "&#FF3333No se pudo agregar {listing} al GTS.";
+		noPokemonInSlot = "&#FF3333No hay ningún Pokémon en el slot indicado.";
+		noItemInHand = "&#FF3333No tienes ningún item en la mano.";
+		bannedItem = "&#FF3333{listing} está prohibido en el GTS.";
+		bannedPokemon = "&#FF3333{listing} está prohibido en el GTS.";
+		insufficientItems = "&#FF3333No tienes suficientes {listing} para listar.";
+		itemIdNotFound = "&#FF3333No se encontró el item.";
+		zeroItemAmount = "&#FF3333La cantidad no puede ser cero.";
+		reloadMessage = "&#33FF33¡Configuración recargada!";
+		insufficientFunds = "&#FF3333No tienes suficiente dinero para comprar este listing.";
+		listingBought = "&#33FF33Tu {listing} fue comprado por {buyer}";
+		playerOnly = "&#FF3333Este comando solo puede ser ejecutado por un jugador.";
+		somethingWentWrong = "&#FF3333Algo salió mal, avisa a un administrador.";
+		loadingListings = "&#00DDFFCargando listings del GTS...";
+		notTradeable = "&#FF3333Este Pokémon no se puede intercambiar.";
+		inBattle = "&#FF3333No puedes publicar en el GTS mientras estás en batalla.";
+		timedOut = "&#FF3333Estás en timeout por {time}.";
+		stackSizeError = "&#FF3333El tamaño del stack no puede dividir la cantidad indicada.";
+		averagePrice = "&#00DDFFPrecio promedio: &#AAFFFF${price}";
+		noSalesHistory = "&#FF3333Este item/Pokémon no tiene historial de ventas.";
+		mustHoldItem = "&#FF3333Debes tener un item en la mano.";
+		itemDescriptionMessage = "&#00DDFFDescripción del item: &#AAFFFF{item}";
+		debugModeSet = "&#00DDFFModo debug: &#AAFFFF{value}";
+		timeoutRemoved = "&#33FF33Timeout eliminado para {player}.";
+		timeoutSet = "&#00DDFF{player} &#AAFFAAha recibido un timeout de &#AAFFFF{time}.";
+		playerNotFound = "&#FF3333No se encontró al jugador: &#FFAAAA{player}";
+		saveItemSuccess = "&#33FF33¡Item guardado exitosamente!";
+		saveItemFail = "&#FF3333No se pudo guardar el item.";
 		itemListingsButtonItem = CodecUtils.encodeItem(new ItemStack(CobblemonItems.ASSAULT_VEST));
 		pokemonListingsButtonItem = CodecUtils.encodeItem(new ItemStack(CobblemonItems.POKE_BALL));
-		manageListingsButtonItem = CodecUtils.encodeItem(new ItemStack(CobblemonItems.SACHET));
+		manageListingsButtonItem = CodecUtils.encodeItem(new ItemStack(Items.ENDER_CHEST));
 		nextPageButtonItems = CodecUtils.encodeItem(new ItemStack(Items.ARROW));
-		previousPageButtonItems = CodecUtils.encodeItem(new ItemStack(CobblemonItems.POISON_BARB));
-		fillerItem = CodecUtils.encodeItem(new ItemStack(Items.WHITE_STAINED_GLASS_PANE));
-		purchaseButtonItem = CodecUtils.encodeItem(new ItemStack(Items.GREEN_STAINED_GLASS_PANE));
+		previousPageButtonItems = CodecUtils.encodeItem(new ItemStack(Items.ARROW));
+		fillerItem = CodecUtils.encodeItem(new ItemStack(Items.LIGHT_BLUE_STAINED_GLASS_PANE));
+		purchaseButtonItem = CodecUtils.encodeItem(new ItemStack(Items.LIME_STAINED_GLASS_PANE));
 		cancelButtonItem = CodecUtils.encodeItem(new ItemStack(Items.RED_STAINED_GLASS_PANE));
-		sortByPriceButtonItem = CodecUtils.encodeItem(new ItemStack(Items.GOLD_NUGGET));
-		sortByNewestButtonItem = CodecUtils.encodeItem(new ItemStack(Items.CLOCK));
-		sortByNameButtonItem = CodecUtils.encodeItem(new ItemStack(Items.OAK_SIGN));
+		sortByPriceButtonItem = CodecUtils.encodeItem(new ItemStack(Items.GLOWSTONE_DUST));
+		sortByNewestButtonItem = CodecUtils.encodeItem(new ItemStack(Items.REDSTONE));
+		sortByNameButtonItem = CodecUtils.encodeItem(new ItemStack(Items.GLOWSTONE_DUST));
 		expiredListingsButtonItem = CodecUtils.encodeItem(new ItemStack(CobblemonItems.LINK_CABLE));
-		removeListingButtonItem = CodecUtils.encodeItem(new ItemStack(Items.ORANGE_STAINED_GLASS_PANE));
-		newListingBroadcast = "§e{seller} §2has just added a §e{listing} §2to GTS.";
-		seller = "§9Seller: §b";
-		price = "§9Price: §b";
-		sold_date = "§9Sold Date: §b";
-		buyer = "§9Buyer: §b";
-		remainingTime = "§9Time Remaining: §b";
-		confirmPurchaseButtonLabel = "§2Confirm Purchase";
-		cancelPurchaseButtonLabel = "§cCancel Purchase";
-		removeListingButtonLabel = "§6Remove Listing";
-		itemListingsButtonLabel = "§9See Item Listings";
-		pokemonListingsButtonLabel = "§9See Pokemon Listings";
-		manageListingsButtonLabel = "§dManage Listings";
-		nextPageButtonLabel = "§7Next Page";
-		previousPageButtonLabel = "§7Previous Page";
-		sortByPriceButtonLabel = "§eSort By Price";
-		sortByNewestButtonLabel = "§3Sort By Newest";
-		sortByPokemonButtonLabel = "§6Sort By Pokemon";
-		sortByNameButtonLabel = "§6Sort By Name";
-		receiveListingButtonLabel = "§2Receive Listing";
-		insufficientInventorySpace = "§cYou do not have enough inventory space to receive this listing.";
-		onlyOnePokemonInParty = "§cYou can not list a Pokemon to GTS if you only have less than 2 Pokemon in your party.";
-		expiredListingButtonLabel = "§cExpired Listings";
-		pokemonBall = "§2Ball: ";
+		removeListingButtonItem = CodecUtils.encodeItem(new ItemStack(Items.RED_STAINED_GLASS_PANE));
+		informationButtonItem = CodecUtils.encodeItem(new ItemStack(Items.BOOK));
+		refreshButtonItem = CodecUtils.encodeItem(new ItemStack(Items.SUNFLOWER));
+		filterAllButtonItem = CodecUtils.encodeItem(new ItemStack(Items.GLOWSTONE_DUST));
+		filterPokemonButtonItem = CodecUtils.encodeItem(new ItemStack(Items.GLOWSTONE_DUST));
+		filterItemsButtonItem = CodecUtils.encodeItem(new ItemStack(Items.GLOWSTONE_DUST));
+		backButtonItem = CodecUtils.encodeItem(new ItemStack(Items.ARROW));
+		newListingBroadcast = "&#FFCC00{seller} &#AAFFAAacaba de agregar &#FFCC00{listing} &#AAFFAAal GTS.";
+		seller = " &c🪓 &fVendedor: &c";
+		price = " &6⛃ &fPrecio: &6";
+		sold_date = " &a⌚ &fFecha de venta: &a";
+		buyer = " &2🔥 &fComprador: &2";
+		remainingTime = " &a⌚ &fExpira: &a";
+
+		confirmPurchaseButtonLabel = "&#33FF33ᴄᴏɴғɪʀᴍᴀʀ ᴄᴏᴍᴘʀᴀ";
+		cancelPurchaseButtonLabel = "&#FF3333ᴄᴀɴᴄᴇʟᴀʀ";
+		removeListingButtonLabel = "&#FF3333ᴇʟɪᴍɪɴᴀʀ ʟɪsᴛɪɴɢ";
+		itemListingsButtonLabel = "&#00DDFF ɪᴛᴇᴍs";
+		pokemonListingsButtonLabel = "&#00DDFF ᴘᴏᴋᴇᴍᴏɴ";
+		manageListingsButtonLabel = "&#00DDFF ᴍɪs ɪᴛᴇᴍs";
+		nextPageButtonLabel = "&#00DDFF sɪɢᴜɪᴇɴᴛᴇ ᴘᴀɢɪɴᴀ";
+		previousPageButtonLabel = "&#00DDFF ᴘᴀɢɪɴᴀ ᴀɴᴛᴇʀɪᴏʀ";
+		sortByPriceButtonLabel = "&#00DDFF ᴏʀᴅᴇɴᴀᴍɪᴇɴᴛᴏ";
+		sortByNewestButtonLabel = "&#00DDFF ᴏʀᴅᴇɴᴀᴍɪᴇɴᴛᴏ";
+		sortByPokemonButtonLabel = "&#00DDFF ᴏʀᴅᴇɴᴀᴍɪᴇɴᴛᴏ";
+		sortByNameButtonLabel = "&#00DDFF ᴏʀᴅᴇɴᴀᴍɪᴇɴᴛᴏ";
+		receiveListingButtonLabel = "&#33FF33 ʀᴇᴄɪʙɪʀ ɪᴛᴇᴍ";
+		expiredListingButtonLabel = "&#00DDFF ᴇxᴘɪʀᴀᴅᴏs";
+		pokemonBall = "&#33FF33Pokéball: ";
+		informationButtonLabel = "&#00DDFF ɪɴғᴏʀᴍᴀᴄɪóɴ";
+		refreshButtonLabel = "&#00DDFF ᴀᴄᴛᴜᴀʟɪᴢᴀʀ";
+		filterButtonLabel = "&#00DDFF ғɪʟᴛʀᴏ";
+		backButtonLabel = "&#00DDFF ᴠᴏʟᴠᴇʀ";
+
+		// Button lores
+		nextPageButtonLore = Arrays.asList(
+			" ",
+			" &fHaz click aquí para ir",
+			" &fa la siguiente página!",
+			" ",
+			"&#00DDFF→ Click para siguiente página"
+		);
+		previousPageButtonLore = Arrays.asList(
+			" ",
+			" &fHaz click aquí para volver",
+			" &fa la página anterior!",
+			" ",
+			"&#00DDFF→ Click para página anterior"
+		);
+		manageListingsButtonLore = Arrays.asList(
+			" ",
+			" &fHaz click aquí para ir",
+			" &fa la página de mis items!",
+			" ",
+			"&#00DDFF→ Click para mis items"
+		);
+		expiredListingsButtonLore = Arrays.asList(
+			" ",
+			" &fHaz click aquí para ver",
+			" &ftus items expirados!",
+			" ",
+			"&#00DDFF→ Click para items expirados"
+		);
+		relistButtonLore = Arrays.asList(
+			" ",
+			" &fRe-publica todos tus",
+			" &fitems expirados!",
+			" ",
+			"&#00DDFF→ Click para re-publicar todo"
+		);
+		filterButtonLoreAll = Arrays.asList(
+			" ",
+			" &#00DDFFSeleccionado actualmente:",
+			"  &#444444⏺ &#AAFFAAᴛᴏᴅᴏ",
+			"  &#444444⏺ &#BBBBBBsᴏʟᴏ ᴘᴏᴋᴇᴍᴏɴ",
+			"  &#444444⏺ &#BBBBBBsᴏʟᴏ ɪᴛᴇᴍs",
+			" ",
+			"&#00DDFF→ Click para cambiar filtro"
+		);
+		filterButtonLorePokemon = Arrays.asList(
+			" ",
+			" &#00DDFFSeleccionado actualmente:",
+			"  &#444444⏺ &#BBBBBBᴛᴏᴅᴏ",
+			"  &#444444⏺ &#AAFFAAsᴏʟᴏ ᴘᴏᴋᴇᴍᴏɴ",
+			"  &#444444⏺ &#BBBBBBsᴏʟᴏ ɪᴛᴇᴍs",
+			" ",
+			"&#00DDFF→ Click para cambiar filtro"
+		);
+		filterButtonLoreItems = Arrays.asList(
+			" ",
+			" &#00DDFFSeleccionado actualmente:",
+			"  &#444444⏺ &#BBBBBBᴛᴏᴅᴏ",
+			"  &#444444⏺ &#BBBBBBsᴏʟᴏ ᴘᴏᴋᴇᴍᴏɴ",
+			"  &#444444⏺ &#AAFFAAsᴏʟᴏ ɪᴛᴇᴍs",
+			" ",
+			"&#00DDFF→ Click para cambiar filtro"
+		);
+		sortButtonLorePrice = Arrays.asList(
+			" ",
+			" &#00DDFFSeleccionado actualmente:",
+			"  &#444444⏺ &#BBBBBBᴍás ʀᴇᴄɪᴇɴᴛᴇ",
+			"  &#444444⏺ &#AAFFAAᴍᴇɴᴏʀ ᴘʀᴇᴄɪᴏ",
+			"  &#444444⏺ &#BBBBBBɴᴏᴍʙʀᴇ",
+			" ",
+			"&#00DDFF→ Click para cambiar ordenamiento"
+		);
+		sortButtonLoreDate = Arrays.asList(
+			" ",
+			" &#00DDFFSeleccionado actualmente:",
+			"  &#444444⏺ &#AAFFAAᴍás ʀᴇᴄɪᴇɴᴛᴇ",
+			"  &#444444⏺ &#BBBBBBᴍᴇɴᴏʀ ᴘʀᴇᴄɪᴏ",
+			"  &#444444⏺ &#BBBBBBɴᴏᴍʙʀᴇ",
+			" ",
+			"&#00DDFF→ Click para cambiar ordenamiento"
+		);
+		sortButtonLoreName = Arrays.asList(
+			" ",
+			" &#00DDFFSeleccionado actualmente:",
+			"  &#444444⏺ &#BBBBBBᴍás ʀᴇᴄɪᴇɴᴛᴇ",
+			"  &#444444⏺ &#BBBBBBᴍᴇɴᴏʀ ᴘʀᴇᴄɪᴏ",
+			"  &#444444⏺ &#AAFFAAɴᴏᴍʙʀᴇ",
+			" ",
+			"&#00DDFF→ Click para cambiar ordenamiento"
+		);
+		purchaseButtonLore = Arrays.asList(
+			" ",
+			" &f¿Estás seguro de que quieres comprar?",
+			" &f¡Esta acción es irreversible!",
+			" ",
+			"&#33FF33→ Click para confirmar compra"
+		);
+		cancelButtonLore = Arrays.asList(
+			" ",
+			" &fHaz click aquí para volver",
+			" &fal menú principal!",
+			" ",
+			"&#FF3333→ Click para cancelar"
+		);
+		removeListingButtonLore = Arrays.asList(
+			" ",
+			" &fElimina este listing del GTS.",
+			" ",
+			"&#FF3333→ Click para eliminar listing"
+		);
+		receiveListingButtonLore = Arrays.asList(
+			" ",
+			" &fRecupera este item",
+			" &fde tus expirados!",
+			" ",
+			"&#33FF33→ Click para recibir item"
+		);
+		informationButtonLore = Arrays.asList(
+			" ",
+			" &f¡En este menú puedes",
+			" &fvender o comprar items!",
+			" ",
+			"&#00DDFF→ Vender: &#AAFFFF/gts sell"
+		);
+		refreshButtonLore = Arrays.asList(
+			" ",
+			" &fActualiza la lista",
+			" &fde listings!",
+			" ",
+			"&#00DDFF→ Click para actualizar"
+		);
+		backButtonLore = Arrays.asList(
+			" ",
+			" &fHaz click aquí para volver",
+			" &fal menú principal!",
+			" ",
+			"&#00DDFF→ Click para volver"
+		);
+		seePokemonButtonLore = Arrays.asList(
+			" ",
+			" &fHaz click aquí para ver",
+			" &fsolo listings de Pokémon!",
+			" ",
+			"&#00DDFF→ Click para ver Pokémon"
+		);
+		seeItemsButtonLore = Arrays.asList(
+			" ",
+			" &fHaz click aquí para ver",
+			" &fsolo listings de items!",
+			" ",
+			"&#00DDFF→ Click para ver items"
+		);
+
+		// Pokemon lore labels
+		pokemonLoreInfoHeader   = "&#00DDFF✦ ɪɴғᴏ ɢᴇɴᴇʀᴀʟ";
+		pokemonLoreSpecies      = " &7Especie: &f{value}";
+		pokemonLoreType         = "   &7Tipo: &f{value}";
+		pokemonLoreNature       = " &7Naturaleza: &f{value}";
+		pokemonLoreAbility      = "   &7Habilidad: &f{value}";
+		pokemonLoreHA           = " &b(OH)";
+		pokemonLoreBall         = " &7Pokéball: &f{value}";
+		pokemonLoreShiny        = " &#FFD700★ &fShiny";
+		pokemonLoreGenderMale   = "&9♂";
+		pokemonLoreGenderFemale = "&d♀";
+		pokemonLoreSize         = " &7Tamaño: &f{value}";
+		pokemonLorePokerus      = " &7Pokérus: &aSí";
+		pokemonLoreStatsHeader  = "&#00DDFF◈ ᴇsᴛᴀᴅísᴛɪᴄᴀs  &8(IV / EV)";
+		pokemonLoreHP           = " &7PS      &f{iv} &8/ &7{ev}";
+		pokemonLoreAtk          = " &cAtq    &f{iv} &8/ &7{ev}";
+		pokemonLoreDef          = " &aDef    &f{iv} &8/ &7{ev}";
+		pokemonLoreSpAtk        = " &9Sp.Atq &f{iv} &8/ &7{ev}";
+		pokemonLoreSpDef        = " &3Sp.Def &f{iv} &8/ &7{ev}";
+		pokemonLoreSpeed        = " &bVel    &f{iv} &8/ &7{ev}";
+		pokemonLoreMovesHeader  = "&#00DDFF⚔ ᴍᴏᴠɪᴍɪᴇɴᴛᴏs";
+		pokemonLoreBreedable    = "&bReproducible";
+		pokemonLoreUnbreedable  = "&cNo reproducible";
+		pokemonLoreIvsLine      = "&#00DDFF◈ &7IVs: &f{ivs}  &8(Total: {total})";
 	}
 
 
@@ -294,10 +580,28 @@ public class Lang {
 	public ItemStack getRelistExpiredButtonItem() {
 		return CodecUtils.decodeItem(relistExpiredButtonItem);
 	}
+	public ItemStack getInformationButtonItem() {
+		return CodecUtils.decodeItem(informationButtonItem);
+	}
+	public ItemStack getRefreshButtonItem() {
+		return CodecUtils.decodeItem(refreshButtonItem);
+	}
+	public ItemStack getFilterAllButtonItem() {
+		return CodecUtils.decodeItem(filterAllButtonItem);
+	}
+	public ItemStack getFilterPokemonButtonItem() {
+		return CodecUtils.decodeItem(filterPokemonButtonItem);
+	}
+	public ItemStack getFilterItemsButtonItem() {
+		return CodecUtils.decodeItem(filterItemsButtonItem);
+	}
+	public ItemStack getBackButtonItem() {
+		return CodecUtils.decodeItem(backButtonItem);
+	}
 	public String getNewListingBroadcast() {
 		return newListingBroadcast;
 	}
-	public String getInsufficientInventorySpace() { return insufficientInventorySpace;	}
+	public String getInsufficientInventorySpace() { return insufficientInventorySpace; }
 	public String getSeller() {
 		return seller;
 	}
@@ -389,6 +693,121 @@ public class Lang {
 	public String getPokemonBall() {
 		return pokemonBall;
 	}
+	public String getInformationButtonLabel() {
+		return informationButtonLabel;
+	}
+	public String getRefreshButtonLabel() {
+		return refreshButtonLabel;
+	}
+	public String getFilterButtonLabel() {
+		return filterButtonLabel;
+	}
+	public String getBackButtonLabel() {
+		return backButtonLabel;
+	}
+	public List<String> getNextPageButtonLore() {
+		return nextPageButtonLore;
+	}
+	public List<String> getPreviousPageButtonLore() {
+		return previousPageButtonLore;
+	}
+	public List<String> getManageListingsButtonLore() {
+		return manageListingsButtonLore;
+	}
+	public List<String> getExpiredListingsButtonLore() {
+		return expiredListingsButtonLore;
+	}
+	public List<String> getRelistButtonLore() {
+		return relistButtonLore;
+	}
+	public List<String> getFilterButtonLoreAll() {
+		return filterButtonLoreAll;
+	}
+	public List<String> getFilterButtonLorePokemon() {
+		return filterButtonLorePokemon;
+	}
+	public List<String> getFilterButtonLoreItems() {
+		return filterButtonLoreItems;
+	}
+	public List<String> getSortButtonLorePrice() {
+		return sortButtonLorePrice;
+	}
+	public List<String> getSortButtonLoreDate() {
+		return sortButtonLoreDate;
+	}
+	public List<String> getSortButtonLoreName() {
+		return sortButtonLoreName;
+	}
+	public List<String> getPurchaseButtonLore() {
+		return purchaseButtonLore;
+	}
+	public List<String> getCancelButtonLore() {
+		return cancelButtonLore;
+	}
+	public List<String> getRemoveListingButtonLore() {
+		return removeListingButtonLore;
+	}
+	public List<String> getReceiveListingButtonLore() {
+		return receiveListingButtonLore;
+	}
+	public List<String> getInformationButtonLore() {
+		return informationButtonLore;
+	}
+	public List<String> getRefreshButtonLore() {
+		return refreshButtonLore;
+	}
+	public List<String> getBackButtonLore() {
+		return backButtonLore;
+	}
+	public List<String> getSeePokemonButtonLore() {
+		return seePokemonButtonLore;
+	}
+	public List<String> getSeeItemsButtonLore() {
+		return seeItemsButtonLore;
+	}
+
+	public String getPrefix() { return prefix; }
+	public String getPlayerOnly() { return playerOnly; }
+	public String getSomethingWentWrong() { return somethingWentWrong; }
+	public String getLoadingListings() { return loadingListings; }
+	public String getNotTradeable() { return notTradeable; }
+	public String getInBattle() { return inBattle; }
+	public String getTimedOut() { return timedOut; }
+	public String getStackSizeError() { return stackSizeError; }
+	public String getAveragePrice() { return averagePrice; }
+	public String getNoSalesHistory() { return noSalesHistory; }
+	public String getMustHoldItem() { return mustHoldItem; }
+	public String getItemDescriptionMessage() { return itemDescriptionMessage; }
+	public String getDebugModeSet() { return debugModeSet; }
+	public String getTimeoutRemoved() { return timeoutRemoved; }
+	public String getTimeoutSet() { return timeoutSet; }
+	public String getPlayerNotFound() { return playerNotFound; }
+	public String getSaveItemSuccess() { return saveItemSuccess; }
+	public String getSaveItemFail() { return saveItemFail; }
+
+	public String getPokemonLoreInfoHeader()   { return pokemonLoreInfoHeader; }
+	public String getPokemonLoreSpecies()      { return pokemonLoreSpecies; }
+	public String getPokemonLoreType()         { return pokemonLoreType; }
+	public String getPokemonLoreNature()       { return pokemonLoreNature; }
+	public String getPokemonLoreAbility()      { return pokemonLoreAbility; }
+	public String getPokemonLoreHA()           { return pokemonLoreHA; }
+	public String getPokemonLoreBall()         { return pokemonLoreBall; }
+	public String getPokemonLoreShiny()        { return pokemonLoreShiny; }
+	public String getPokemonLoreGenderMale()   { return pokemonLoreGenderMale; }
+	public String getPokemonLoreGenderFemale() { return pokemonLoreGenderFemale; }
+	public String getPokemonLoreSize()         { return pokemonLoreSize; }
+	public String getPokemonLorePokerus()      { return pokemonLorePokerus; }
+	public String getPokemonLoreStatsHeader()  { return pokemonLoreStatsHeader; }
+	public String getPokemonLoreHP()           { return pokemonLoreHP; }
+	public String getPokemonLoreAtk()          { return pokemonLoreAtk; }
+	public String getPokemonLoreDef()          { return pokemonLoreDef; }
+	public String getPokemonLoreSpAtk()        { return pokemonLoreSpAtk; }
+	public String getPokemonLoreSpDef()        { return pokemonLoreSpDef; }
+	public String getPokemonLoreSpeed()        { return pokemonLoreSpeed; }
+	public String getPokemonLoreMovesHeader()  { return pokemonLoreMovesHeader; }
+	public String getPokemonLoreBreedable()    { return pokemonLoreBreedable; }
+	public String getPokemonLoreUnbreedable()  { return pokemonLoreUnbreedable; }
+	public String getPokemonLoreIvsLine()      { return pokemonLoreIvsLine; }
 
 	public CompletableFuture<Boolean> write() {
 		Gson gson = Utils.newGson();

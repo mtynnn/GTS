@@ -6,8 +6,11 @@ import ca.landonjw.gooeylibs2.api.button.GooeyButton;
 import ca.landonjw.gooeylibs2.api.page.Page;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.component.ItemLore;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.util.ColorUtil;
+
+import java.util.stream.Collectors;
 
 public abstract class ManageListings {
     public static Button getButton() {
@@ -15,6 +18,10 @@ public abstract class ManageListings {
                 .display(Gts.language.getManageListingsButtonItem())
                 .with(DataComponents.CUSTOM_NAME,
                         ColorUtil.parse(Gts.language.getManageListingsButtonLabel()))
+                .with(DataComponents.LORE, new ItemLore(
+                        Gts.language.getManageListingsButtonLore().stream()
+                                .map(ColorUtil::parse)
+                                .collect(Collectors.toList())))
                 .onClick((action) -> {
                     ServerPlayer sender = action.getPlayer();
                     Page page = new org.pokesplash.gts.UI.ManageListings().getPage(action.getPlayer().getUUID());

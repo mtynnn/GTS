@@ -1,0 +1,154 @@
+# Download it here: https://black-minecraft.com/resources/7256/
+# DOCUMENTATION: https://docs.artillex-studios.com/axauctions.html
+
+prefix: '&8[<gradient:#00BBFF:#00DDFF>ꜱᴜʙᴀꜱᴛᴀꜱ</gradient>&8] '
+
+database:
+  # h2, mysql
+  type: h2
+  prefix: axauctions
+  
+  # you only need to touch these when using mysql
+  address: 127.0.0.1
+  port: 3306
+  database: admin
+  username: admin
+  password: admin
+  pool:
+    maximum-pool-size: 10
+    minimum-idle: 10
+    maximum-lifetime: 1800000
+    keepalive-time: 0
+    connection-timeout: 5000
+
+# format: language_COUNTRY
+# after changing this, the server will download the default item names
+language: es_MX
+
+# when using mysql, how should data be sent between servers?
+# values: none, sql
+# if you don't need multi server support, set to none to disable
+multi-server-support: sql
+
+# should sellers get their money only when they join?
+# with some currency plugins this option is automatically enabled
+# the sellers will still be notified about sold items even if this is false
+only-give-money-on-join: false
+
+# some economy plugins take time to load, (especially on synced servers) with this setting you can
+# control how many seconds should we wait before giving money to player after login
+delay-money-give-seconds: 3
+
+number-formatting:
+  # modes:
+  # 0 - formatted (customizable, look at the formatted part)
+  # 1 - short (1K)
+  # 2 - raw (1000.4242421412)
+  mode: 0
+  # https://docs.oracle.com/javase/tutorial/i18n/format/decimalFormat.html
+  formatted: '#,###.##'
+  # format: language_COUNTRY
+  short: es_CL
+
+# 1 - HH:MM:SS, for example 01:25:35
+# 2 - short format, for example 20m
+# 3 - text format, for example 01h 25m 35s
+timer-format: 3
+
+# after how long should items expire?
+# in seconds
+item-expire-time: 604800
+
+# after how long should items get deleted?
+# only starts if the item have expired
+# in seconds
+item-deletion-time: 604800
+
+# the minimum price for an item
+# do not set below 0.01
+min-price: 1000.0
+
+# the maximum price for an item
+# set to -1 to disable
+max-price: -1
+
+# if true, even if there is only 1 loaded currency, the selector will show
+force-currency-selector: false
+
+# if disabled, the currency selector will never show
+enable-currency-selector: false
+
+# how often should people be able to refresh the gui?
+# all items are stored in memory which should be fast, so this value won't hurt performance unless it is set very low
+gui-refresh-cooldown-milliseconds: 150
+
+# in the /ah history gui, how many items should be shown at most?
+# note that this doesn't delete any data, it will just not request more than the selected amount
+# set to -1 to allow unlimited
+max-history-length: -1
+
+# if enabled, /ah history will show all auctions made instead of only showing ones related to the player
+# if disabled, you can still access this data with the /ahadmin history admin command
+show-global-history: false
+
+# if enabled, an expired-items-gui.yml will be generated in the guis folder where the player's expired items will be shown
+# and the my items gui will only show the player's active items
+# note: to make this gui accessible, you will have to manually edit gui files and add an item with a "[MENU] expired-items" action
+# requires a restart to enable
+separate-expired-items: false
+
+# you must define at least 1 alias for both
+# requires a restart to update
+command-aliases:
+  auction:
+  - axah
+  - ah
+  - auctionhouse
+  - axauction
+  - auction
+  - axauctionhouse
+  admin:
+  - axahadmin
+  - ahadmin
+  - auctionhouseadmin
+  - axauctionadmin
+  - auctionadmin
+  - axauctionhouseadmin
+
+# list of items that CAN'T be sold in the auction house
+#
+# supported regex: (optional)
+# - 'name' #  only 'name' is disallowed
+# - 'name*' #  disallows text starting with 'name'
+# - '*name' #  disallows text ending with 'name'
+# - '*name*' #  disallows text containing 'name'
+#
+# you can use some sections from our item builder: (https://docs.artillex-studios.com/item-builder.html)
+#  > name
+#  > material / type
+#  > custom-model-data (only the old variant)
+blacklist-items:
+- custom-model-data: 100
+  material: BARRIER
+  name: '*Some custom item*'
+- custom-model-data: 150
+  material: BARRIER
+  name: '*Another custom item*'
+
+# should be plugin notify you if there is a new update?
+update-notifier:
+  # if enabled, it will display the message in the console
+  enabled: true
+  # if enabled, it will broadcast the update message to all players who have the <plugin-name>.update-notify permission
+  on-join: true
+
+# in case an exploit is found, if enabled, the plugin will disable some (or all) features to prevent people from abusing them on your server
+# requires a restart to change
+enable-safety: true
+
+# prints out a lot of information about the plugin in the console
+# this can cause a lot of spam, only use if a developer asks you to
+debug: false
+
+# do not change this
+version: 15

@@ -6,10 +6,10 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.command.superclass.Subcommand;
+import org.pokesplash.gts.util.Utils;
 
 public class History extends Subcommand {
 
@@ -17,10 +17,6 @@ public class History extends Subcommand {
 		super("§9Usage:\n§3- gts history");
 	}
 
-	/**
-	 * Method used to add to the base command for this subcommand.
-	 * @return source to complete the command.
-	 */
 	@Override
 	public LiteralCommandNode<CommandSourceStack> build() {
 		return Commands.literal("history")
@@ -36,16 +32,11 @@ public class History extends Subcommand {
 				.build();
 	}
 
-	/**
-	 * Method to perform the logic when the command is executed.
-	 * @param context the source of the command.
-	 * @return integer to complete command.
-	 */
 	@Override
 	public int run(CommandContext<CommandSourceStack> context) {
 
 		if (!context.getSource().isPlayer()) {
-			context.getSource().sendSystemMessage(Component.literal("This command must be ran by a player."));
+			Utils.sendMsg(context.getSource(), Gts.language.getPlayerOnly());
 			return 1;
 		}
 
@@ -57,8 +48,7 @@ public class History extends Subcommand {
 			UIManager.openUIForcefully(sender, page);
 		} catch (Exception e) {
 			e.printStackTrace();
-			sender.sendSystemMessage(Component.literal("§cSomething went wrong, please tell an admin " +
-					"to check the console."));
+			Utils.sendMsg(sender, Gts.language.getSomethingWentWrong());
 		}
 
 		return 1;

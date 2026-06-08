@@ -4,7 +4,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.pokesplash.gts.Gts;
@@ -17,10 +16,6 @@ public class ItemDescription extends Subcommand {
 		super("§9Usage:\n§3- gts itemdesc");
 	}
 
-	/**
-	 * Method used to add to the base command for this subcommand.
-	 * @return source to complete the command.
-	 */
 	@Override
 	public LiteralCommandNode<CommandSourceStack> build() {
 		return Commands.literal("itemdesc")
@@ -36,31 +31,23 @@ public class ItemDescription extends Subcommand {
 				.build();
 	}
 
-	/**
-	 * Method to perform the logic when the command is executed.
-	 * @param context the source of the command.
-	 * @return integer to complete command.
-	 */
 	@Override
 	public int run(CommandContext<CommandSourceStack> context) {
 
-        if (!context.getSource().isPlayer()) {
-            context.getSource().sendSystemMessage(Component.literal("This command can only be used by a player."));
-            return 1;
-        }
+		if (!context.getSource().isPlayer()) {
+			Utils.sendMsg(context.getSource(), Gts.language.getPlayerOnly());
+			return 1;
+		}
 
 		ItemStack handItem = context.getSource().getPlayer().getMainHandItem();
 
-        if (handItem.is(Items.AIR)) {
-            context.getSource().sendSystemMessage(Component.literal(
-                    "§cYou must be holding an item to use this command"
-            ));
-            return 1;
-        }
+		if (handItem.is(Items.AIR)) {
+			Utils.sendMsg(context.getSource(), Gts.language.getMustHoldItem());
+			return 1;
+		}
 
-        context.getSource().sendSystemMessage(Component.literal(
-                handItem.getItem().getDescriptionId()
-        ));
+		Utils.sendMsg(context.getSource(), Gts.language.getItemDescriptionMessage()
+				.replace("{item}", handItem.getItem().getDescriptionId()));
 
 		return 1;
 	}

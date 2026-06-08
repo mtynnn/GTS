@@ -1,0 +1,271 @@
+# DOCUMENTATION: https://docs.artillex-studios.com/axauctions.html
+
+# you can create your own currencies by using placeholders
+# make sure that none of the placeholders have any formatting on them
+# requires PlaceholderAPI
+# you will have to restart the server to apply changes
+placeholder-currencies:
+  Example-Currency:
+    register: false
+    # if the currency uses whole numbers, then disable this
+    # 100.5 - true
+    # 100 - false
+    uses-double: true
+    # if the placeholder gets parsed even for offline players, enable this
+    works-offline: false
+    # optional: tax (example: 5 is 5% tax)
+    tax: 0
+    settings:
+      raw-placeholder: '%vault_eco_balance_fixed%'
+      give-command: eco give %player% %amount%
+      take-command: eco take %player% %amount%
+    display:
+      raw: Money
+      gui: '&f%price% &#AAFFFFmoney'
+      item:
+        material: EMERALD
+        name: '&#00DDFFMoney'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+
+# supported currencies
+currencies:
+  Experience:
+    register: false
+    # optional: tax (example: 5 is 5% tax)
+    tax: 0
+    display:
+      raw: Experience
+      gui: '&f%price% &#AAFFFFexperience'
+      item:
+        material: EXPERIENCE_BOTTLE
+        name: '&#00DDFFExperience'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  Vault:
+    register: true
+    tax: 0
+    display:
+      # the way the currency will be shown in the lores of the auction gui
+      gui: '&#FFCA28%price%⛃'
+      # used in the currency switcher and tab completion
+      raw: Vault
+      # the item shown in the currency selector
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFVault'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  PlayerPoints:
+    register: false
+    tax: 0
+    display:
+      raw: PlayerPoints
+      gui: '&f%price% &#AAFFFFpoints'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFPlayerPoints'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  RoyaleEconomy:
+    register: false
+    tax: 0
+    display:
+      raw: RoyaleEconomy
+      gui: '&f%price% &#AAFFFFcoins'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFRoyaleEconomy'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  KingdomsX:
+    register: false
+    tax: 0
+    display:
+      raw: KingdomsX
+      gui: '&f%price% &#AAFFFFnexus points'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFKingdomsX'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  RivalHarvesterHoes:
+    register: false
+    tax: 0
+    display:
+      raw: RivalHarvesterHoes
+      gui: '&f%price% &#AAFFFFessence'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFRivalHarvesterHoes'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  SuperMobCoins:
+    register: false
+    tax: 0
+    display:
+      raw: SuperMobCoins
+      gui: '&f%price% &#AAFFFFmobcoin'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFSuperMobCoins'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  TheOnly-MobCoins:
+    register: false
+    tax: 0
+    display:
+      raw: TheOnly-MobCoins
+      gui: '&f%price% &#AAFFFFmobcoin'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFTheOnly-MobCoins'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  TokenManager:
+    register: false
+    tax: 0
+    display:
+      raw: TokenManager
+      gui: '&f%price% &#AAFFFFtoken'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFTokenManager'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  AxQuestBoard:
+    register: false
+    tax: 0
+    display:
+      raw: AxQuestBoard
+      gui: '&f%price% &#AAFFFFquest points'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFAxQuestBoard'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  BeastTokens:
+    register: false
+    tax: 0
+    display:
+      raw: BeastTokens
+      gui: '&f%price% &#AAFFFFtokens'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFBeastTokens'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  AxMobCoins: # this plugin is unreleased, so don't search for it!
+    register: false
+    tax: 0
+    display:
+      raw: AxMobCoins
+      gui: '&f%price% &#AAFFFFmobcoin'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFAxMobCoins'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  CoinsEngine:
+    register: false
+    # CoinsEngine supports multiple currencies, so you can also add multiple here
+    # "coins" is the name of the currency
+    coins:
+      tax: 0
+      display:
+        raw: CoinsEngine-coins
+        gui: '&f%price% &#AAFFFFcoins'
+        item:
+          material: GOLD_INGOT
+          name: '&#00DDFFCoinsEngine coins'
+          lore:
+          - ' '
+          - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  ExcellentEconomy:
+    register: false
+    # ExcellentEconomy supports multiple currencies, so you can also add multiple here
+    # "coins" is the name of the currency
+    coins:
+      tax: 0
+      display:
+        raw: ExcellentEconomy-coins
+        gui: '&f%price% &#AAFFFFcoins'
+        item:
+          material: GOLD_INGOT
+          name: '&#00DDFFExcellentEconomy coins'
+          lore:
+          - ' '
+          - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  EcoBits:
+    register: false
+    # EcoBits supports multiple currencies, so you can also add multiple here
+    # "crystals" is the name of the currency
+    crystals:
+      tax: 0
+      display:
+        raw: EcoBits-crystals
+        gui: '&f%price% &#AAFFFFcrystals'
+        item:
+          material: GOLD_INGOT
+          name: '&#00DDFFEcoBits crystals'
+          lore:
+          - ' '
+          - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  RedisEconomy:
+    register: false
+    # RedisEconomy supports multiple currencies, so you can also add multiple here
+    # "coins" is the name of the currency
+    coins:
+      tax: 0
+      display:
+        raw: RedisEconomy-coins
+        gui: '&f%price% &#AAFFFFcoins'
+        item:
+          material: GOLD_INGOT
+          name: '&#00DDFFRedisEconomy coins'
+          lore:
+          - ' '
+          - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  UltraEconomy:
+    register: false
+    # UltraEconomy supports multiple currencies, so you can also add multiple here
+    # "coins" is the name of the currency
+    coins:
+      tax: 0
+      display:
+        raw: UltraEconomy-coins
+        gui: '&f%price% &#AAFFFFcoins'
+        item:
+          material: GOLD_INGOT
+          name: '&#00DDFFUltraEconomy coins'
+          lore:
+          - ' '
+          - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+  RivalCredits:
+    register: false
+    tax: 0
+    display:
+      raw: RivalCredits
+      gui: '&f%price% &#AAFFFFcredits'
+      item:
+        material: GOLD_INGOT
+        name: '&#00DDFFRivalCredits'
+        lore:
+        - ' '
+        - '&#00DDFF&l(!) &#00DDFFClick here to select!'
+
+# do not change this
+version: '8'

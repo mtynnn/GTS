@@ -6,7 +6,6 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import org.pokesplash.gts.Gts;
 import org.pokesplash.gts.command.superclass.Subcommand;
@@ -20,10 +19,6 @@ public class Timeout extends Subcommand {
 		super("§9Usage:\n§3- gts timeout <player> <time> <amount>");
 	}
 
-	/**
-	 * Method used to add to the base command for this subcommand.
-	 * @return source to complete the command.
-	 */
 	@Override
 	public LiteralCommandNode<CommandSourceStack> build() {
 		return Commands.literal("timeout")
@@ -67,11 +62,6 @@ public class Timeout extends Subcommand {
 				.build();
 	}
 
-	/**
-	 * Method to perform the logic when the command is executed.
-	 * @param context the source of the command.
-	 * @return integer to complete command.
-	 */
 	@Override
 	public int run(CommandContext<CommandSourceStack> context) {
 
@@ -80,8 +70,8 @@ public class Timeout extends Subcommand {
 		ServerPlayer player = Gts.server.getPlayerList().getPlayerByName(playerName);
 
 		if (player == null) {
-			context.getSource().sendSystemMessage(Component.literal("§cCould not find player with name: "
-					+ playerName));
+			Utils.sendMsg(context.getSource(), Gts.language.getPlayerNotFound()
+					.replace("{player}", playerName));
 			return 1;
 		}
 
@@ -94,23 +84,24 @@ public class Timeout extends Subcommand {
 		try {
 			endTime = parseTime(time, amount);
 		} catch (Exception e) {
-			context.getSource().sendSystemMessage(Component.literal("§cCould not parse time "
-					+ time));
+			Utils.sendMsg(context.getSource(), Gts.language.getSomethingWentWrong());
 			return 1;
-        }
+		}
 
 		if (!Gts.timeouts.hasTimeoutExpired(player.getUUID())) {
 			Gts.timeouts.removeTimeout(player.getUUID());
-			context.getSource().sendSystemMessage(Component.literal("§cRemoved timeout for " + playerName));
+			Utils.sendMsg(context.getSource(), Gts.language.getTimeoutRemoved()
+					.replace("{player}", playerName));
 			return 1;
 		}
 
 		Gts.timeouts.addTimeout(player.getUUID(), endTime);
 
-		context.getSource().sendSystemMessage(Component.literal("§b" + playerName +
-				" has been timed out for " + Utils.parseLongDate(endTime - new Date().getTime())));
+		Utils.sendMsg(context.getSource(), Gts.language.getTimeoutSet()
+				.replace("{player}", playerName)
+				.replace("{time}", Utils.parseLongDate(endTime - new Date().getTime())));
 
-        return 1;
+		return 1;
 	}
 
 	private long parseTime(String type, int amount) throws Exception {
