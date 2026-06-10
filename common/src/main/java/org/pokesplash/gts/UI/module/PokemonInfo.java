@@ -61,11 +61,11 @@ public abstract class PokemonInfo {
                 + shiny));
 
         lore.add(ColorUtil.parse(Gts.language.getPokemonLoreNature()
-                .replace("{value}", pokemon.getNature().getDisplayName())));
+                .replace("{value}", net.minecraft.network.chat.Component.translatable(pokemon.getNature().getDisplayName()).getString())));
 
         String haStr = Utils.isHA(pokemon) ? Gts.language.getPokemonLoreHA() : "";
         lore.add(ColorUtil.parse(Gts.language.getPokemonLoreAbility()
-                .replace("{value}", pokemon.getAbility().getDisplayName() + haStr)));
+                .replace("{value}", net.minecraft.network.chat.Component.translatable(pokemon.getAbility().getDisplayName()).getString() + haStr)));
 
         int total = totalIvs(pokemon);
         String ivs = iv(pokemon, Stats.HP) + "&8/&f"
@@ -104,8 +104,8 @@ public abstract class PokemonInfo {
 
         String haStr = Utils.isHA(pokemon) ? Gts.language.getPokemonLoreHA() : "";
         lore.add(ColorUtil.parse(
-                Gts.language.getPokemonLoreNature().replace("{value}", pokemon.getNature().getDisplayName())
-                + Gts.language.getPokemonLoreAbility().replace("{value}", pokemon.getAbility().getDisplayName() + haStr)));
+                Gts.language.getPokemonLoreNature().replace("{value}", net.minecraft.network.chat.Component.translatable(pokemon.getNature().getDisplayName()).getString())
+                + Gts.language.getPokemonLoreAbility().replace("{value}", net.minecraft.network.chat.Component.translatable(pokemon.getAbility().getDisplayName()).getString() + haStr)));
 
         Item ball = pokemon.getCaughtBall().item();
         lore.add(ColorUtil.parse(Gts.language.getPokemonLoreBall()

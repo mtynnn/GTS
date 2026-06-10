@@ -253,7 +253,7 @@ public class Lang {
 		manageListingsButtonItem = CodecUtils.encodeItem(new ItemStack(Items.ENDER_CHEST));
 		nextPageButtonItems = CodecUtils.encodeItem(new ItemStack(Items.ARROW));
 		previousPageButtonItems = CodecUtils.encodeItem(new ItemStack(Items.ARROW));
-		fillerItem = CodecUtils.encodeItem(new ItemStack(Items.LIGHT_BLUE_STAINED_GLASS_PANE));
+		fillerItem = CodecUtils.encodeItem(new ItemStack(Items.GRAY_STAINED_GLASS_PANE));
 		purchaseButtonItem = CodecUtils.encodeItem(new ItemStack(Items.LIME_STAINED_GLASS_PANE));
 		cancelButtonItem = CodecUtils.encodeItem(new ItemStack(Items.RED_STAINED_GLASS_PANE));
 		sortByPriceButtonItem = CodecUtils.encodeItem(new ItemStack(Items.GLOWSTONE_DUST));
